@@ -15,8 +15,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/bungee"
         android:text="Bienvenido, Inicia Sesion"
-        android:textColor="#3b444b"
-        android:textSize="30sp" />
+        android:textColor="#000"
+        android:textSize="30sp"
+        android:transitionName="titulo"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/correo"
             android:hint="Correo"
+            android:transitionName="correo"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -45,13 +47,14 @@
             android:id="@+id/password"
             android:hint="Contraseña"
             app:passwordToggleEnabled="true"
+            android:transitionName="password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextLoginPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,7 +67,7 @@
             android:background="#00123456"
             android:elevation="0dp"
             android:text="¿Olvidaste tu contraseña?"
-            android:textColor="#3b444b"
+            android:textColor="#000"
             android:textSize="08sp"/>
 
         <Button
@@ -73,9 +76,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="#3b444b"
+            android:background="#000"
             android:text="Login"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:transitionName="button_tran"/>
 
         <Button
             android:id="@+id/buttonLoginRegistrate"
@@ -86,7 +90,8 @@
             android:background="#00123456"
             android:elevation="0dp"
             android:text="¿Nuevo Usuario? Regístrate"
-            android:textColor="#3b444b" />
+            android:textColor="#000"
+            android:transitionName="login_signup"/>
         
     </LinearLayout>
 

@@ -7,20 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegistrateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_registrate);
 
         getSupportActionBar().hide();
 
-        Button buttonLoginRegistrate = findViewById(R.id.buttonLoginRegistrate);
-        buttonLoginRegistrate.setOnClickListener(new View.OnClickListener() {
+        Button buttonRegistroLogin = findViewById(R.id.buttonRegistroLogin);
+        buttonRegistroLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,RegistrateActivity.class);
+                Intent intent = new Intent(RegistrateActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });

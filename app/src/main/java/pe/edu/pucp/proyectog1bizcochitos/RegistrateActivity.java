@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Pattern;
+
 public class RegistrateActivity extends AppCompatActivity {
 
     @Override
@@ -35,7 +37,6 @@ public class RegistrateActivity extends AppCompatActivity {
         validarCodigo();
         Intent intent = getIntent();
         String name = intent.getStringExtra("nameUser");
-
 
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -61,7 +62,7 @@ public class RegistrateActivity extends AppCompatActivity {
                 if (snapshot.getValue() != null) {
                     Usuario usuario = snapshot.getValue(Usuario.class);
                     Log.d("infoApp", usuario.getNombre());
-                    if(usuario.getCodigo().equals(null)) {
+                    if (usuario.getCodigo().equals(null)) {
 
                     } else {
                         startActivity(new Intent(RegistrateActivity.this, ClienteActivity.class));
@@ -77,7 +78,28 @@ public class RegistrateActivity extends AppCompatActivity {
         });
     }
 
-    public void saveUser(View view) {
+    public void registro(View view) {
+        EditText editTextRegistroCodigo = findViewById(R.id.editTextRegistroCodigo);
+        String codigo = editTextRegistroCodigo.getText().toString();
+
+        boolean valid = Pattern.matches("\\A\\w{8,8}\\z", codigo);
+        if (codigo.isEmpty()) {
+            editTextRegistroCodigo.setError("No puede estar vacío");
+        } else if (codigo.length() <= 7 | codigo.length() >= 9) {
+            editTextRegistroCodigo.setError("Solo puede tener 8 caracteres");
+        }
+
+        if (valid) {
+            if (!codigo.isEmpty()) {
+                saveUser();
+            }
+        } else {
+            editTextRegistroCodigo.setError("Solo se permite letras y/o números");
+        }
+
+    }
+
+    public void saveUser() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         EditText editTextRegistroCodigo = findViewById(R.id.editTextRegistroCodigo);

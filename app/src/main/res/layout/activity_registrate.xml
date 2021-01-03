@@ -41,6 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Código PUCP"
+            app:counterEnabled="true"
+            app:counterMaxLength="8"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -59,7 +61,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="5dp"
         android:background="#000"
-        android:onClick="saveUser"
+        android:onClick="registro"
         android:text="Registrate"
         android:textColor="#fff" />
 

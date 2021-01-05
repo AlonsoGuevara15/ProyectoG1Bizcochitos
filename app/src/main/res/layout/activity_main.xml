@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/bungee"
         android:text="Bienvenido a Bizcochitos"
+        android:textAlignment="center"
         android:textColor="#000"
         android:textSize="30sp"/>
 

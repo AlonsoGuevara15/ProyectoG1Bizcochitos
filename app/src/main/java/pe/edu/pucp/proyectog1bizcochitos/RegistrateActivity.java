@@ -34,7 +34,6 @@ public class RegistrateActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        validarCodigo();
         Intent intent = getIntent();
         String name = intent.getStringExtra("nameUser");
 
@@ -52,32 +51,6 @@ public class RegistrateActivity extends AppCompatActivity {
 
     }
 
-    public void validarCodigo() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        databaseReference.child("users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getValue() != null) {
-                    Usuario usuario = snapshot.getValue(Usuario.class);
-                    Log.d("infoApp", usuario.getNombre());
-                    if (usuario.getCodigo().equals(null)) {
-
-                    } else {
-                        startActivity(new Intent(RegistrateActivity.this, ClienteActivity.class));
-                        finish();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
     public void registro(View view) {
         EditText editTextRegistroCodigo = findViewById(R.id.editTextRegistroCodigo);
         String codigo = editTextRegistroCodigo.getText().toString();
@@ -87,14 +60,13 @@ public class RegistrateActivity extends AppCompatActivity {
             editTextRegistroCodigo.setError("No puede estar vacío");
         } else if (codigo.length() <= 7 | codigo.length() >= 9) {
             editTextRegistroCodigo.setError("Solo puede tener 8 caracteres");
+        } else if (!valid) {
+            editTextRegistroCodigo.setError("Solo se permite letras y/o números");
         }
 
-        if (valid) {
-            if (!codigo.isEmpty()) {
-                saveUser();
-            }
-        } else {
-            editTextRegistroCodigo.setError("Solo se permite letras y/o números");
+
+        if (!codigo.isEmpty() && codigo.length() == 8 && codigo.matches("\\A\\w{8,8}\\z")) {
+            saveUser();
         }
 
     }

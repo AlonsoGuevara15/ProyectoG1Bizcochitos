@@ -17,8 +17,7 @@
         android:fontFamily="@font/bungee"
         android:text="Bienvenido, Registrate"
         android:textColor="#000"
-        android:textSize="25sp"
-        android:transitionName="titulo"/>
+        android:textSize="25sp"/>
 
     <TextView
         android:id="@+id/textViewRegistroDescrip"

@@ -19,8 +19,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -98,10 +101,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openUserAct(FirebaseUser currentUser) {
-        Intent intent = new Intent(MainActivity.this, RegistrateActivity.class);
-        intent.putExtra("nameUser", currentUser.getDisplayName());
-        startActivity(intent);
-        finish();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null) {
+                    Usuario usuario = snapshot.getValue(Usuario.class);
+                    Log.d("infoApp", usuario.getCodigo());
+                    if (usuario.getCodigo().equals(null)) {
+                        startActivity(new Intent(MainActivity.this, RegistrateActivity.class));
+                        finish();
+                    } else {
+                        startActivity(new Intent(MainActivity.this, ClienteActivity.class));
+                        finish();
+                    }
+                } else {
+                    startActivity(new Intent(MainActivity.this, RegistrateActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 }

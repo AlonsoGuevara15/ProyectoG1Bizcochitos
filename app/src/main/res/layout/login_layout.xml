@@ -23,8 +23,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="5dp"
         android:background="#000"
-        android:text="Inicia sesión con tu correo"
-        android:transitionName="button_tran" />
+        android:text="Inicia sesión con tu correo"/>
 
     <Button
         android:id="@+id/buttonGoogle"

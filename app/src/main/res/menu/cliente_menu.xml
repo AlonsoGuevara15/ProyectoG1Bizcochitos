@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:title="Dispositivos">
+
+            <menu>
+
+                <item
+                    android:id="@+id/nav_disp"
+                    android:title="Ver Dispositivos"
+                    android:icon="@drawable/ic_laptop"/>
+
+            </menu>
+
+        </item>
+
+    </group>
+
+    <item android:title="Préstamos">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_soli"
+                    android:title="Solicitudes"
+                    android:icon="@drawable/ic_request"/>
+
+                <item
+                    android:id="@+id/nav_hist"
+                    android:title="Historial"
+                    android:icon="@drawable/ic_history"/>
+
+            </group>
+
+        </menu>
+
+    </item>
+
+    <item android:title="Sesión">
+
+        <menu>
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_logout"
+                    android:title="Cerrar Sesión"
+                    android:icon="@drawable/ic_logout"/>
+
+            </group>
+
+        </menu>
+
+    </item>
+
+</menu>

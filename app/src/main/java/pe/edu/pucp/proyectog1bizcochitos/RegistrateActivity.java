@@ -25,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
 
+import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
+
 public class RegistrateActivity extends AppCompatActivity {
 
     @Override
@@ -32,7 +34,7 @@ public class RegistrateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrate);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("nameUser");
@@ -99,7 +101,7 @@ public class RegistrateActivity extends AppCompatActivity {
                         Log.d("logApp", "Error al guardar");
                     }
                 });
-        startActivity(new Intent(RegistrateActivity.this, ClienteActivity.class));
+        startActivity(new Intent(RegistrateActivity.this, DevicesCliente.class));
         finish();
     }
 

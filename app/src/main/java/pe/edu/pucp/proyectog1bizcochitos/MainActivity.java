@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.List;
 
+import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         validacionUsuario();
 
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, RegistrateActivity.class));
                         finish();
                     } else {
-                        startActivity(new Intent(MainActivity.this, ClienteActivity.class));
+                        startActivity(new Intent(MainActivity.this, DevicesCliente.class));
                         finish();
                     }
                 } else {

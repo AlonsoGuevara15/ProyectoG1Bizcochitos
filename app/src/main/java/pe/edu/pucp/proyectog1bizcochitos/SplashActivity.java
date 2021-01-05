@@ -21,14 +21,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         Animation topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
         Animation bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
@@ -68,7 +71,7 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(new Intent(SplashActivity.this, RegistrateActivity.class));
                         finish();
                     } else {
-                        startActivity(new Intent(SplashActivity.this, ClienteActivity.class));
+                        startActivity(new Intent(SplashActivity.this, DevicesCliente.class));
                         finish();
                     }
                 } else {

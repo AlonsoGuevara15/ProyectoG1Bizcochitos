@@ -14,7 +14,6 @@
         <activity android:name=".cliente.HistoryCliente" />
         <activity android:name=".cliente.SolicitudesCliente" />
         <activity android:name=".cliente.DevicesCliente" />
-        <activity android:name=".ClienteActivity" />
         <activity android:name=".RegistrateActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>

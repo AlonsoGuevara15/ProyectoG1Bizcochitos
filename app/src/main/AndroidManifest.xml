@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/miTema">
-        <activity android:name=".ClienteActivity"></activity>
+        <activity android:name=".usuarioTI.PedidosTi"></activity>
+        <activity android:name=".usuarioTI.DevicesTi" />
+        <activity android:name=".cliente.HistoryCliente" />
+        <activity android:name=".cliente.SolicitudesCliente" />
+        <activity android:name=".cliente.DevicesCliente" />
+        <activity android:name=".ClienteActivity" />
         <activity android:name=".RegistrateActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>

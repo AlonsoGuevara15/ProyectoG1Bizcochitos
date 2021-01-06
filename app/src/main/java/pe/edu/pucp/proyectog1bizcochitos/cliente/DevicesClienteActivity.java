@@ -20,6 +20,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -33,6 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -43,8 +46,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.Query;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -59,6 +60,7 @@ import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
 public class DevicesClienteActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -82,8 +84,8 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_cliente);
         setACtionBarDrawer();
-        tipo = findViewById(R.id.textTipo);
-        marca = findViewById(R.id.textMarca);
+         tipo = findViewById(R.id.textTipo);
+         marca = findViewById(R.id.textMarca);
         ImageButton clearsearch = findViewById(R.id.btnClearsearch);
         mRecyclerView = findViewById(R.id.recyclerDevicesClient);
         progressBar = findViewById(R.id.progressBarDeviceClient);
@@ -91,11 +93,12 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         databaseReference = FirebaseDatabase.getInstance().getReference();
         refdev = databaseReference.child("devices");
 
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         permissions();
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            setNotif();
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             databaseReference.child("users").child(currentUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                 @Override
@@ -429,12 +432,12 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         switch (item.getItemId()) {
             case R.id.nav_soli:
                 startActivity(new Intent(DevicesClienteActivity.this, SolicitudesCliente.class));
-
+                finish();
                 break;
 
             case R.id.nav_hist:
                 startActivity(new Intent(DevicesClienteActivity.this, HistoryCliente.class));
-
+                finish();
                 break;
 
             case R.id.nav_logout:
@@ -500,6 +503,17 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
 
             return;
         }
+
+        fusedLocationProviderClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            Log.d("infoApp", "Latitud: " + location.getLatitude() + " | Longitud: " + location.getLongitude());
+
+                        }
+                    }
+                });
     }
 
     public void goGoogleMaps(View view) {

@@ -15,12 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import pe.edu.pucp.proyectog1bizcochitos.clases.Device;
+import pe.edu.pucp.proyectog1bizcochitos.clases.Solicitud;
 import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesClienteActivity;
 import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTiActivity;
 
@@ -78,6 +81,26 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(contexto, "Dispositivo borrado exitosamente", Toast.LENGTH_LONG).show();
+
+                                databaseReference.child("requests").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot snapshot1: snapshot.getChildren()) {
+                                            Solicitud solicitud = snapshot1.getValue(Solicitud.class);
+                                            if (solicitud.getDeviceid().equals(lista.get(position).getDeviceId())) {
+                                                databaseReference.child("requests").child(solicitud.getSolicId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

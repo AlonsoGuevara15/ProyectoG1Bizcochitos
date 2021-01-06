@@ -16,14 +16,18 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
 
 import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
 
 import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
+import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTi;
 
 public class RegistrateActivity extends AppCompatActivity {
 
@@ -84,6 +88,7 @@ public class RegistrateActivity extends AppCompatActivity {
         usuario.setNombre(nombre);
         usuario.setCorreo(correo);
         usuario.setCodigo(codigo);
+        usuario.setRol("Cliente");
 
         databaseReference.child("users").child(currentUser.getUid()).setValue(usuario)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -99,8 +104,29 @@ public class RegistrateActivity extends AppCompatActivity {
                         Log.d("logApp", "Error al guardar");
                     }
                 });
-        startActivity(new Intent(RegistrateActivity.this, DevicesCliente.class));
-        finish();
+
+        databaseReference.child("users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null) {
+                    Usuario usuario = snapshot.getValue(Usuario.class);
+                    Log.d("infoApp", usuario.getCodigo());
+
+                    if (usuario.getRol().equals("Cliente")) {
+                        startActivity(new Intent(RegistrateActivity.this, DevicesCliente.class));
+                        finish();
+                    } else if (usuario.getRol().equals("Admin")) {
+                        startActivity(new Intent(RegistrateActivity.this, DevicesTi.class));
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void logout(View view) {

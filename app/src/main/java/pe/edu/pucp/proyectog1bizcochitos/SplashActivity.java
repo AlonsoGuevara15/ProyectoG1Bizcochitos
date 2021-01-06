@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
 
 import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
+import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTi;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -72,8 +74,16 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(new Intent(SplashActivity.this, RegistrateActivity.class));
                         finish();
                     } else {
-                        startActivity(new Intent(SplashActivity.this, DevicesCliente.class));
-                        finish();
+                        if(usuario.getRol().equals("Cliente")) {
+                            startActivity(new Intent(SplashActivity.this, DevicesCliente.class));
+                            finish();
+                        } else if(usuario.getRol().equals("Admin")) {
+                            startActivity(new Intent(SplashActivity.this, DevicesTi.class));
+                            finish();
+                        } else {
+                            startActivity(new Intent(SplashActivity.this, RegistrateActivity.class));
+                            finish();
+                        }
                     }
                 } else {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));

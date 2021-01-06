@@ -28,6 +28,7 @@ import java.util.List;
 import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
 
 import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
+import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTi;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -113,8 +114,16 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, RegistrateActivity.class));
                         finish();
                     } else {
-                        startActivity(new Intent(MainActivity.this, DevicesCliente.class));
-                        finish();
+                        if(usuario.getRol().equals("Cliente")) {
+                            startActivity(new Intent(MainActivity.this, DevicesCliente.class));
+                            finish();
+                        } else if(usuario.getRol().equals("Admin")) {
+                            startActivity(new Intent(MainActivity.this, DevicesTi.class));
+                            finish();
+                        } else {
+                            startActivity(new Intent(MainActivity.this, RegistrateActivity.class));
+                            finish();
+                        }
                     }
                 } else {
                     startActivity(new Intent(MainActivity.this, RegistrateActivity.class));

@@ -1,6 +1,8 @@
 package pe.edu.pucp.proyectog1bizcochitos.clases;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
 
     private String nombre, correo, codigo;
     private String rol = "Cliente";

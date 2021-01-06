@@ -9,8 +9,6 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -18,7 +16,6 @@
         app:headerLayout="@layout/header_layout"
         app:menu="@menu/cliente_menu"
         android:layout_gravity="start"/>
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
@@ -37,16 +34,50 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:navigationIcon="@drawable/ic_menu" />
 
+
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#9b9b9b"
+                android:padding="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+                <ImageView
+                    android:id="@+id/imageViewSoli"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_laptop"/>
+
+                <TextView
+                    android:id="@+id/textViewSolicitudTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/imageViewSoli"
+                    android:fontFamily="@font/bungee"
+                    android:includeFontPadding="false"
+                    android:text="Dispositivos"
+                    android:textColor="#F4F4F4"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
             <EditText
                 android:id="@+id/textTipo"
                 android:layout_width="96dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="56dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="20dp"
                 android:hint="Tipo..."
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout5" />
 
             <EditText
                 android:id="@+id/textMarca"
@@ -71,17 +102,29 @@
                 app:layout_constraintTop_toTopOf="@+id/textMarca"
                 app:srcCompat="@drawable/ic_clear_search" />
 
+            <Button
+                android:id="@+id/buttonGoogleMaps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="152dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="171dp"
+                android:onClick="goGoogleMaps"
+                android:text="Google Maps"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textMarca" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerDevicesClient"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="430dp"
+                android:layout_height="491dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.61"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textTipo"
-                app:layout_constraintVertical_bias="1" />
+                />
 
             <ProgressBar
                 android:id="@+id/progressBarDeviceClient"
@@ -95,7 +138,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/fragmentDeviceClient"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_height="0dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"

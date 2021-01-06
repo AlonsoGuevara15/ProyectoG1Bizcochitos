@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -12,7 +13,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -48,6 +51,8 @@ import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
 
 public class DevicesClienteActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
+
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -58,6 +63,9 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
     ChildEventListener listener;
     DatabaseReference databaseReference;
     DatabaseReference refdev;
+    TextView tipo;
+    TextView marca;
+
 
 
     @Override
@@ -65,8 +73,8 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_cliente);
         setACtionBarDrawer();
-        TextView tipo = findViewById(R.id.textTipo);
-        TextView marca = findViewById(R.id.textMarca);
+         tipo = findViewById(R.id.textTipo);
+         marca = findViewById(R.id.textMarca);
         ImageButton clearsearch = findViewById(R.id.btnClearsearch);
         mRecyclerView = findViewById(R.id.recyclerDevicesClient);
         progressBar = findViewById(R.id.progressBarDeviceClient);
@@ -74,6 +82,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         databaseReference = FirebaseDatabase.getInstance().getReference();
         refdev = databaseReference.child("devices");
 
+        permissions();
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -161,7 +170,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
 
     }
 
-    public void openListRecycler(String tipo, String marca) {
+    public void openListRecycler(String t, String m) {
         progressBar.setVisibility(View.VISIBLE);
 
         DevicesAdapter crAdapter = new DevicesAdapter(listadevices, DevicesClienteActivity.this, "Cliente");
@@ -175,7 +184,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Device device = snapshot.getValue(Device.class);
-                if (device.getTipo().toLowerCase().contains(tipo.toLowerCase()) && device.getMarca().toLowerCase().contains(marca.toLowerCase())) {
+                if (device.getTipo().toLowerCase().contains(t.toLowerCase()) && device.getMarca().toLowerCase().contains(m.toLowerCase())) {
                     progressBar.setVisibility(View.VISIBLE);
                     listadevices.add(device);
                     mRecyclerView.getAdapter().notifyItemInserted(listadevices.size());
@@ -188,7 +197,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 listadevices = new ArrayList<>();
                 mRecyclerView.getAdapter().notifyItemInserted(listadevices.size());
-                openListRecycler("", "");
+                openListRecycler(tipo.getText().toString(), marca.getText().toString());
 
             }
 
@@ -196,7 +205,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 listadevices = new ArrayList<>();
                 mRecyclerView.getAdapter().notifyItemInserted(listadevices.size());
-                openListRecycler("", "");
+                openListRecycler(tipo.getText().toString(), marca.getText().toString());
             }
 
             @Override
@@ -355,5 +364,26 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         if (listener != null) {
             refdev.removeEventListener(listener);
         }
+    }
+
+
+    public void permissions() {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(DevicesClienteActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+
+            return;
+        }
+    }
+
+    public void goGoogleMaps (View view) {
+        permissions();
+        startActivity(new Intent(DevicesClienteActivity.this,MapsActivity.class));
+        finish();
     }
 }

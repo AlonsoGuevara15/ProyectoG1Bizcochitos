@@ -2,20 +2,20 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".usuarioTI.PedidosTiActivity"
-    android:id="@+id/drawer_layout5"
     android:fitsSystemWindows="true"
+    tools:context=".usuarioTI.PedidosTiActivity"
     tools:openDrawer="start">
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view5"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:headerLayout="@layout/header_layout"
-        app:menu="@menu/usuario_menu"
-        android:layout_gravity="start"/>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:headerLayout="@layout/header_layout"
+            app:menu="@menu/usuario_menu"
+            android:layout_gravity="start"/>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,8 +50,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_request"
-                app:srcCompat="@drawable/ic_reserva" />
+                android:src="@drawable/ic_reserva" />
 
             <TextView
                 android:id="@+id/textViewSolicitudTitulo"
@@ -62,7 +61,7 @@
                 android:layout_toRightOf="@+id/imageViewSoli"
                 android:fontFamily="@font/bungee"
                 android:includeFontPadding="false"
-                android:text="Reservas"
+                android:text="@string/reservas"
                 android:textColor="#F4F4F4"
                 android:textSize="20sp" />
 
@@ -77,6 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout5" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fragmentPedidosTI"
             android:layout_width="match_parent"
@@ -92,8 +92,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

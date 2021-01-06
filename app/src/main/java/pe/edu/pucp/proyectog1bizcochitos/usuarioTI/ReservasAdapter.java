@@ -82,6 +82,23 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.Reserv
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Toast.makeText(contexto, "Solicitud aprobada exitosamente", Toast.LENGTH_LONG).show();
+                                                    if (soli.isCorreoNotif()) {
+
+                                                        databaseReference.child("users").child(soli.getUserid()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                                                            @Override
+                                                            public void onSuccess(DataSnapshot dataSnapshot) {
+                                                                Usuario user = dataSnapshot.getValue(Usuario.class);
+                                                                String msg = "Pedido: " + device.getTipo() + " - " + device.getMarca() + "\n" +
+                                                                        "Motivo: " + soli.getMotivo() + ".\n" +
+                                                                        "Dirección: " + soli.getDireccion() + ".\n" +
+                                                                        "Estado: " + "APROBADO.";
+
+                                                                ((PedidosTiActivity) contexto).sendEmail(user.getCorreo(), "Tu solicitud de dispositivo ha sido APROBADA", msg);
+                                                            }
+                                                        });
+                                                    }
+
+
                                                 }
                                             });
                                         }

@@ -38,6 +38,7 @@ import pe.edu.pucp.proyectog1bizcochitos.R;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Device;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Solicitud;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
+import pe.edu.pucp.proyectog1bizcochitos.config.SendMail;
 
 public class PedidosTiActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -147,7 +148,7 @@ public class PedidosTiActivity extends AppCompatActivity implements NavigationVi
                 }
                 View view = findViewById(R.id.fragmentPedidosTI);
                 view.setVisibility(View.VISIBLE);
-                RechazarFragment cFragment = RechazarFragment.newInstance(soli,device);
+                RechazarFragment cFragment = RechazarFragment.newInstance(soli,device,PedidosTiActivity.this);
 
                 fm.beginTransaction()
                         .add(R.id.fragmentPedidosTI, cFragment)
@@ -225,5 +226,13 @@ public class PedidosTiActivity extends AppCompatActivity implements NavigationVi
         if (listener != null) {
             refreq.removeEventListener(listener);
         }
+    }
+    public void sendEmail(String email,String subject,String message) {
+
+        //Creating SendMail object
+        SendMail sm = new SendMail(this, email, subject, message);
+
+        //Executing sendmail to send email
+        sm.execute();
     }
 }

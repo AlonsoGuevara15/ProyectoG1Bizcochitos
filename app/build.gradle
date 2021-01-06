@@ -7,6 +7,9 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE.txt' // picks the JavaMail license file
+    }
 
     defaultConfig {
         applicationId "pe.edu.pucp.proyectog1bizcochitos"
@@ -53,4 +56,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.google.firebase:firebase-firestore:22.0.1'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.sun.mail:android-mail:1.6.2'
+    implementation 'com.sun.mail:android-activation:1.6.2'
 }

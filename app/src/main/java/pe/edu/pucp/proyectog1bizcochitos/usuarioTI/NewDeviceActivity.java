@@ -52,7 +52,7 @@ public class NewDeviceActivity extends AppCompatActivity {
 
     FloatingActionButton btnSto, btnIm, btnCam;
 
-    EditText idTipoOtro;
+    EditText idTipoEsp;
     EditText idMarca;
     EditText idCarac;
     EditText idIncluye;
@@ -76,11 +76,14 @@ public class NewDeviceActivity extends AppCompatActivity {
     Device device;
     Spinner spinner;
     String tipo;
+    String keyDev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_device);
+
+        device = new Device();
 
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -91,13 +94,12 @@ public class NewDeviceActivity extends AppCompatActivity {
         btnCam = findViewById(R.id.add_camera);
         selectedImage = findViewById(R.id.selectedImage);
 
-        idTipoOtro = findViewById(R.id.idTipoOtro);
+        idTipoEsp = findViewById(R.id.idTipoEsp);
         idMarca = findViewById(R.id.idMarca);
         idCarac = findViewById(R.id.idCarac);
         idIncluye = findViewById(R.id.idIncluye);
         idStock = findViewById(R.id.idStock);
 
-        device = new Device();
 
         String[] lista = {"Laptop", "Tableta", "Celular", "Monitor", "Otro"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, lista);
@@ -106,13 +108,14 @@ public class NewDeviceActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String itemAtPosition = (String) parent.getItemAtPosition(position);
-                Log.d("infoAppp",itemAtPosition );
-                if (itemAtPosition.equals("Otro")) {
-                    idTipoOtro.setVisibility(View.VISIBLE);
-                    tipo = idTipoOtro.getText().toString();
+
+                String item = lista[position];
+
+                if (item.equals("Otro")) {
+                    tipo = idTipoEsp.getText().toString();
+                    Log.d("infoApp",tipo);
                 } else {
-                    tipo = itemAtPosition;
+                    tipo = item;
                 }
             }
 
@@ -184,6 +187,12 @@ public class NewDeviceActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(idStock.getText().toString())) {
             idStock.setError("Ingrese un precio");
             return;
+        } else {
+            try{
+                Integer.parseInt(idStock.getText().toString());
+            }catch (NumberFormatException e){
+                e.getMessage();
+            }
         }
 
         device.setMarca(idMarca.getText().toString());
@@ -192,7 +201,8 @@ public class NewDeviceActivity extends AppCompatActivity {
         device.setStock(Integer.parseInt(idStock.getText().toString()));
 
         deviceIdRef = databaseReference.child("devices").push();
-        device.setDeviceId(deviceIdRef.getKey());
+        keyDev = deviceIdRef.getKey();
+        device.setDeviceId(keyDev);
         device.setTipo(tipo);
 
         deviceIdRef.setValue(device)
@@ -213,13 +223,37 @@ public class NewDeviceActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (uploadTask != null) {
+            uploadTask.cancel();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (uploadTask != null && uploadTask.isInProgress()) {
+            uploadTask.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (uploadTask != null && uploadTask.isPaused()) {
+            uploadTask.resume();
+        }
+    }
+
 
     public void uploadImage() {
 
         if (!isCamera) {
 
                 if (imgURL != null) {
-                    uploadTask = storageReference.child("Imagenes").child(device.getDeviceId() + ".jpg")
+                    uploadTask = storageReference.child("Imagenes").child(keyDev + ".jpg")
                             .putFile(imgURL)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -252,13 +286,16 @@ public class NewDeviceActivity extends AppCompatActivity {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] data = baos.toByteArray();
 
-                    uploadTask = storageReference.child("Imagenes").child(device.getDeviceId() + ".jpg")
+                    uploadTask = storageReference.child("Imagenes").child(keyDev  + ".jpg")
                             .putBytes(data)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     Toast.makeText(NewDeviceActivity.this, "Archivo subido exitosamente", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(NewDeviceActivity.this, DevicesTiActivity.class);
+                                    startActivity(intent);
                                     Log.d("infoApp", "subida exitosa");
+                                    finish();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

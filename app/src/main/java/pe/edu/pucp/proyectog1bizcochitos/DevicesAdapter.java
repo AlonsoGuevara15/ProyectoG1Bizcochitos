@@ -1,6 +1,7 @@
 package pe.edu.pucp.proyectog1bizcochitos;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -55,6 +59,10 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
     public void onBindViewHolder(@NonNull DevicesAdapter.DeviceViewHolder holder, int position) {
         holder.tipodevice.setText(lista.get(position).getTipo());
         holder.marcadevice.setText(lista.get(position).getMarca());
+        String ruta = "Imagenes/" + lista.get(position).getDeviceId() + ".jpg";
+        StorageReference imageRef = FirebaseStorage.getInstance().getReference().child(ruta);
+        Log.d(TAG,ruta);
+        Glide.with(contexto).load(imageRef).into(holder.imageDevice);
 
         switch (rol) {
             case "Cliente":
@@ -133,6 +141,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
         public ImageButton btnDelete;
         public ImageButton btnEdit;
         public ImageButton btnDetails;
+        public ImageView imageDevice;
 
 
         public DeviceViewHolder(@NonNull View itemView) {
@@ -142,6 +151,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
             this.btnDelete = itemView.findViewById(R.id.btnDelete);
             this.btnEdit = itemView.findViewById(R.id.btnEdit);
             this.btnDetails = itemView.findViewById(R.id.btnDetails);
+            this.imageDevice = itemView.findViewById(R.id.imageDevice);
 
 
 

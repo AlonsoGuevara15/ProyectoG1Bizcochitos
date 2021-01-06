@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -14,9 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -60,6 +65,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    private static final String NOTIFCHANNEL = "newmsg";
     private static final String TAG = "debugeo";
     private ArrayList<Device> listadevices = new ArrayList<>();
     private RecyclerView mRecyclerView;
@@ -69,6 +75,9 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
     DatabaseReference refdev;
     TextView tipo;
     TextView marca;
+    static ChildEventListener notiflistener;
+    int NOTIFNUMBER = 0;
+    Location location;
 
 
     @Override
@@ -76,8 +85,8 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_cliente);
         setACtionBarDrawer();
-         tipo = findViewById(R.id.textTipo);
-         marca = findViewById(R.id.textMarca);
+        tipo = findViewById(R.id.textTipo);
+        marca = findViewById(R.id.textMarca);
         ImageButton clearsearch = findViewById(R.id.btnClearsearch);
         mRecyclerView = findViewById(R.id.recyclerDevicesClient);
         progressBar = findViewById(R.id.progressBarDeviceClient);
@@ -281,7 +290,10 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         DatabaseReference refgenerado = databaseReference.child("requests").push();
         soli.setSolicId(refgenerado.getKey());
-
+        if (location != null) {
+            soli.setLat(location.getLatitude());
+            soli.setLon(location.getLongitude());
+        }
         refgenerado.setValue(soli).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -297,6 +309,89 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         }
         View view = findViewById(R.id.fragmentDeviceClient);
         view.setVisibility(View.GONE);
+
+    }
+
+    public void setNotif() {
+//
+        if (notiflistener == null) {
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                NotificationChannel notificationChannel = new NotificationChannel(
+                        NOTIFCHANNEL,
+                        "Notificaciones de Chat",
+                        NotificationManager.IMPORTANCE_HIGH
+                );
+                notificationChannel.setDescription("Notificaciones de nuevo mensaje recibido");
+                notificationChannel.enableVibration(true);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+
+
+            Log.d(TAG, "setea listener");
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+            notiflistener = databaseRef.child("requests").orderByChild("userid").equalTo(currentUser.getUid()).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    Solicitud soli = snapshot.getValue(Solicitud.class);
+                    Log.d(TAG, "Leyó mi cambio");
+                    databaseRef.child("devices").child(soli.getDeviceid()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                        @Override
+                        public void onSuccess(DataSnapshot dataSnapshot) {
+                            Device device = dataSnapshot.getValue(Device.class);
+                            if (device != null) {
+                                if (soli.getEstado().equals("Aprobado")) {
+                                    NotificationCompat.Builder builder = new NotificationCompat.Builder(DevicesClienteActivity.this, NOTIFCHANNEL);
+                                    builder.setSmallIcon(R.mipmap.ic_launcher_round);
+                                    builder.setContentText(device.getTipo() + " - " + device.getMarca());
+                                    builder.setContentTitle("Solicitud APROBADA");
+                                    builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+                                    notificationManager.notify(NOTIFNUMBER, builder.build());
+                                    NOTIFNUMBER++;
+
+                                } else if (soli.getEstado().equals("Rechazado")) {
+                                    NotificationCompat.Builder builder = new NotificationCompat.Builder(DevicesClienteActivity.this, NOTIFCHANNEL);
+                                    builder.setSmallIcon(R.mipmap.ic_launcher_round);
+                                    builder.setContentText(device.getTipo() + " - " + device.getMarca() + "\nMotivo: " + soli.getJustifrechazo());
+                                    builder.setContentTitle("Solicitud RECHAZADA");
+                                    builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+                                    notificationManager.notify(NOTIFNUMBER, builder.build());
+                                    NOTIFNUMBER++;
+                                }
+                            }
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else {
+            Log.d(TAG, "Listener ya existe");
+        }
+
+//        Usuario user = document.toObject(Usuario.class);
 
     }
 
@@ -364,10 +459,36 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "PAUSADO");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "INICIADO");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "PARADO");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "RESUMIDO");
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, "DESTRUIDO");
         if (listener != null) {
             refdev.removeEventListener(listener);
+            listener = null;
         }
     }
 
@@ -385,21 +506,22 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
             return;
         }
 
+
         fusedLocationProviderClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            Log.d("infoApp", "Latitud: " + location.getLatitude() + " | Longitud: " + location.getLongitude());
-
+                    public void onSuccess(Location locat) {
+                        if (locat != null) {
+                            Log.d("infoApp", "Latitud: " + locat.getLatitude() + " | Longitud: " + locat.getLongitude());
+                            location = locat;
                         }
                     }
                 });
     }
 
-    public void goGoogleMaps (View view) {
+    public void goGoogleMaps(View view) {
         permissions();
-        startActivity(new Intent(DevicesClienteActivity.this,MapsActivity.class));
+        startActivity(new Intent(DevicesClienteActivity.this, MapsActivity.class));
         finish();
     }
 }

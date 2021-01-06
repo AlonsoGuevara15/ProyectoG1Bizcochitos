@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -12,8 +13,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -31,6 +37,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +55,7 @@ public class DevicesTiActivity extends AppCompatActivity implements NavigationVi
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+
 
     private static final String TAG = "debugeo";
     private ArrayList<Device> listadevices = new ArrayList<>();
@@ -65,14 +74,15 @@ public class DevicesTiActivity extends AppCompatActivity implements NavigationVi
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DevicesTiActivity.this,NewDeviceActivity.class));
+                startActivity(new Intent(DevicesTiActivity.this, NewDeviceActivity.class));
                 finish();
             }
         });
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        refdev= databaseReference.child("devices");
+        refdev = databaseReference.child("devices");
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
+
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             databaseReference.child("users").child(currentUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                 @Override
@@ -103,12 +113,12 @@ public class DevicesTiActivity extends AppCompatActivity implements NavigationVi
         mRecyclerView.setAdapter(crAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(DevicesTiActivity.this));
 
-        if (listener != null){
+        if (listener != null) {
             refdev.removeEventListener(listener);
         }
 
 
-        listener= databaseReference.child("devices").addChildEventListener(new ChildEventListener() {
+        listener = databaseReference.child("devices").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Device device = snapshot.getValue(Device.class);
@@ -139,6 +149,7 @@ public class DevicesTiActivity extends AppCompatActivity implements NavigationVi
             }
         });
     }
+
     public void openEditFragment(String id) {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -165,6 +176,7 @@ public class DevicesTiActivity extends AppCompatActivity implements NavigationVi
         });
 
     }
+
     public void updateCampos(Device device) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference refgenerado = databaseRef.child("devices").child(device.getDeviceId());
@@ -196,6 +208,8 @@ public class DevicesTiActivity extends AppCompatActivity implements NavigationVi
         view.setVisibility(View.GONE);
 
     }
+
+
 
 
     public void setACtionBarDrawer() {

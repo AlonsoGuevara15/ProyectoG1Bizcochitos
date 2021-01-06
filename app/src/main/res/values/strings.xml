@@ -8,6 +8,8 @@
     <string name="dispositivos">Dispositivos</string>
     <string name="hola">hola</string>
     <string name="title_activity_maps">Map</string>
+    <string name="holaaaa">Holaaaa</string>
+    <string name="tipo">Tipo</string>
     <string-array name="tipos">
         <item>Laptop</item>
         <item>Tableta</item>

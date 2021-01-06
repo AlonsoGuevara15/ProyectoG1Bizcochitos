@@ -76,7 +76,8 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
     TextView tipo;
     TextView marca;
     static ChildEventListener notiflistener;
-    int NOTIFNUMBER=0;
+    int NOTIFNUMBER = 0;
+    Location location;
 
 
     @Override
@@ -84,8 +85,8 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_cliente);
         setACtionBarDrawer();
-         tipo = findViewById(R.id.textTipo);
-         marca = findViewById(R.id.textMarca);
+        tipo = findViewById(R.id.textTipo);
+        marca = findViewById(R.id.textMarca);
         ImageButton clearsearch = findViewById(R.id.btnClearsearch);
         mRecyclerView = findViewById(R.id.recyclerDevicesClient);
         progressBar = findViewById(R.id.progressBarDeviceClient);
@@ -289,7 +290,10 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         DatabaseReference refgenerado = databaseReference.child("requests").push();
         soli.setSolicId(refgenerado.getKey());
-
+        if (location != null) {
+            soli.setLat(location.getLatitude());
+            soli.setLon(location.getLongitude());
+        }
         refgenerado.setValue(soli).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -312,20 +316,18 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
 //
         if (notiflistener == null) {
             NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            NotificationChannel notificationChannel = new NotificationChannel(
-                    NOTIFCHANNEL,
-                    "Notificaciones de Chat",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            notificationChannel.setDescription("Notificaciones de nuevo mensaje recibido");
-            notificationChannel.enableVibration(true);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
-
+                NotificationChannel notificationChannel = new NotificationChannel(
+                        NOTIFCHANNEL,
+                        "Notificaciones de Chat",
+                        NotificationManager.IMPORTANCE_HIGH
+                );
+                notificationChannel.setDescription("Notificaciones de nuevo mensaje recibido");
+                notificationChannel.enableVibration(true);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
 
 
             Log.d(TAG, "setea listener");
@@ -339,13 +341,13 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
 
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    Solicitud soli =  snapshot.getValue(Solicitud.class);
+                    Solicitud soli = snapshot.getValue(Solicitud.class);
                     Log.d(TAG, "Leyó mi cambio");
                     databaseRef.child("devices").child(soli.getDeviceid()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                         @Override
                         public void onSuccess(DataSnapshot dataSnapshot) {
                             Device device = dataSnapshot.getValue(Device.class);
-                            if(device!=null) {
+                            if (device != null) {
                                 if (soli.getEstado().equals("Aprobado")) {
                                     NotificationCompat.Builder builder = new NotificationCompat.Builder(DevicesClienteActivity.this, NOTIFCHANNEL);
                                     builder.setSmallIcon(R.mipmap.ic_launcher_round);
@@ -358,7 +360,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
                                 } else if (soli.getEstado().equals("Rechazado")) {
                                     NotificationCompat.Builder builder = new NotificationCompat.Builder(DevicesClienteActivity.this, NOTIFCHANNEL);
                                     builder.setSmallIcon(R.mipmap.ic_launcher_round);
-                                    builder.setContentText(device.getTipo() + " - " + device.getMarca() +"\nMotivo: " +soli.getJustifrechazo());
+                                    builder.setContentText(device.getTipo() + " - " + device.getMarca() + "\nMotivo: " + soli.getJustifrechazo());
                                     builder.setContentTitle("Solicitud RECHAZADA");
                                     builder.setPriority(NotificationCompat.PRIORITY_HIGH);
                                     notificationManager.notify(NOTIFNUMBER, builder.build());
@@ -486,7 +488,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         Log.d(TAG, "DESTRUIDO");
         if (listener != null) {
             refdev.removeEventListener(listener);
-            listener=null;
+            listener = null;
         }
     }
 
@@ -504,13 +506,14 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
             return;
         }
 
+
         fusedLocationProviderClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            Log.d("infoApp", "Latitud: " + location.getLatitude() + " | Longitud: " + location.getLongitude());
-
+                    public void onSuccess(Location locat) {
+                        if (locat != null) {
+                            Log.d("infoApp", "Latitud: " + locat.getLatitude() + " | Longitud: " + locat.getLongitude());
+                            location = locat;
                         }
                     }
                 });

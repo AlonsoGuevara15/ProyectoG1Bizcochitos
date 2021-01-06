@@ -100,6 +100,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
+            setNotif();
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             databaseReference.child("users").child(currentUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                 @Override

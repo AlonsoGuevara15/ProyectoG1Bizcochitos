@@ -196,20 +196,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/idTipoOtro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:ems="10"
-        android:hint="Especifique el tipo"
-        android:inputType="textPersonName"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/idSpinner"
-        app:layout_constraintStart_toEndOf="@+id/idSpinner"
-        app:layout_constraintTop_toTopOf="@+id/idSpinner"
-        app:layout_constraintVertical_bias="0.761" />
-
-    <EditText
         android:id="@+id/idMarca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -247,5 +233,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <EditText
+        android:id="@+id/idTipoEsp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Especifique el tipo"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/idSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/idSpinner"
+        app:layout_constraintTop_toTopOf="@+id/idSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

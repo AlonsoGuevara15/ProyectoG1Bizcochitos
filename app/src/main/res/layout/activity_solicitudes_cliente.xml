@@ -2,11 +2,11 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".cliente.SolicitudesCliente"
-    android:id="@+id/drawer_layout2"
     android:fitsSystemWindows="true"
+    tools:context=".cliente.SolicitudesCliente"
     tools:openDrawer="start">
 
     <com.google.android.material.navigation.NavigationView
@@ -35,11 +35,50 @@
                 android:theme="?attr/actionBarTheme"
                 app:navigationIcon="@drawable/ic_menu" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#9b9b9b"
+                android:padding="20dp">
 
+                <ImageView
+                    android:id="@+id/imageViewSoli"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_request" />
+
+                <TextView
+                    android:id="@+id/textViewSolicitudTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/imageViewSoli"
+                    android:fontFamily="@font/bungee"
+                    android:includeFontPadding="false"
+                    android:text="Solicitudes"
+                    android:textColor="#F4F4F4"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_solicitud"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

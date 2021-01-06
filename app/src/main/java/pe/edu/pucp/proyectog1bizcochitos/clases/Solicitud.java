@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Solicitud implements Serializable {
     private String estado = "Pendiente";
-    private String motivo, direccion;
+    private String motivo, direccion,userid;
     private String solicId = "";
     private double lat = 0, lon = 0;
     private String deviceid;
@@ -26,11 +26,12 @@ public class Solicitud implements Serializable {
         this.correoNotif = correoNotif;
     }
 
-    public Solicitud(String motivo, String direccion, String deviceid, boolean correoNotif) {
+    public Solicitud(String motivo, String direccion, String deviceid, boolean correoNotif,String userid) {
         this.motivo = motivo;
         this.direccion = direccion;
         this.deviceid = deviceid;
         this.correoNotif = correoNotif;
+        this.userid = userid;
     }
 
     public String getEstado() {
@@ -95,5 +96,13 @@ public class Solicitud implements Serializable {
 
     public void setCorreoNotif(boolean correoNotif) {
         this.correoNotif = correoNotif;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 }

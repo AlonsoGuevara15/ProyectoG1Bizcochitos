@@ -12,6 +12,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import pe.edu.pucp.proyectog1bizcochitos.R;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Device;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Solicitud;
@@ -65,8 +68,12 @@ public class ReservaFragment extends Fragment {
         btnReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((DevicesClienteActivity) getActivity()).saveSolicitud(new Solicitud(editTextMotivo.getText().toString(), editTextDireccion.getText().toString(), device.getDeviceId(), detailStock.isChecked()));
-
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser != null) {
+                    ((DevicesClienteActivity) getActivity()).saveSolicitud(new Solicitud(editTextMotivo.getText().toString(), editTextDireccion.getText().toString(), device.getDeviceId(), detailStock.isChecked(), currentUser.getUid()));
+                }else{
+                    getActivity().finish();
+                }
             }
         });
 

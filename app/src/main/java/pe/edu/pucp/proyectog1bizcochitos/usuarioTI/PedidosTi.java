@@ -72,7 +72,7 @@ public class PedidosTi extends AppCompatActivity implements NavigationView.OnNav
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_gest:
-                startActivity(new Intent(PedidosTi.this, DevicesTi.class));
+                startActivity(new Intent(PedidosTi.this, DevicesTiActivity.class));
                 break;
 
             case R.id.nav_logout:

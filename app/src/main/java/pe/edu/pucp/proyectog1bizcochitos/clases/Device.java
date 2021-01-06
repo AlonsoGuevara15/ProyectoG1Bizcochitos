@@ -3,16 +3,22 @@ package pe.edu.pucp.proyectog1bizcochitos.clases;
 import java.io.Serializable;
 
 public class Device implements Serializable {
-    private String tipo, fotoid, marca, caracteristicas, incluye;
+    private String tipo, marca, caracteristicas, incluye;
     private String deviceId="";
     private int stock;
 
     public Device() {
     }
 
-    public Device(String tipo, String fotoid, String marca, String caracteristicas, String incluye, String deviceId, int stock) {
+    public Device(String tipo, String marca, String caracteristicas, String incluye, String deviceId, int stock) {
         this.tipo = tipo;
-        this.fotoid = fotoid;
+        this.marca = marca;
+        this.caracteristicas = caracteristicas;
+        this.incluye = incluye;
+        this.deviceId = deviceId;
+        this.stock = stock;
+    }
+    public Device(String marca, String caracteristicas, String incluye, String deviceId, int stock) {
         this.marca = marca;
         this.caracteristicas = caracteristicas;
         this.incluye = incluye;
@@ -26,14 +32,6 @@ public class Device implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public String getFotoid() {
-        return fotoid;
-    }
-
-    public void setFotoid(String fotoid) {
-        this.fotoid = fotoid;
     }
 
     public String getMarca() {

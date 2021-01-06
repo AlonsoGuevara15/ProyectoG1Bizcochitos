@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesClienteActivity;
 
 import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
-import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTi;
+import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTiActivity;
 
 public class RegistrateActivity extends AppCompatActivity {
 
@@ -116,7 +116,7 @@ public class RegistrateActivity extends AppCompatActivity {
                         startActivity(new Intent(RegistrateActivity.this, DevicesClienteActivity.class));
                         finish();
                     } else if (usuario.getRol().equals("Admin")) {
-                        startActivity(new Intent(RegistrateActivity.this, DevicesTi.class));
+                        startActivity(new Intent(RegistrateActivity.this, DevicesTiActivity.class));
                         finish();
                     }
                 }

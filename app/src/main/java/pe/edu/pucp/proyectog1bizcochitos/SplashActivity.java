@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesClienteActivity;
 
 import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
-import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTi;
+import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTiActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -78,7 +78,7 @@ public class SplashActivity extends AppCompatActivity {
                             startActivity(new Intent(SplashActivity.this, DevicesClienteActivity.class));
                             finish();
                         } else if(usuario.getRol().equals("Admin")) {
-                            startActivity(new Intent(SplashActivity.this, DevicesTi.class));
+                            startActivity(new Intent(SplashActivity.this, DevicesTiActivity.class));
                             finish();
                         } else {
                             startActivity(new Intent(SplashActivity.this, RegistrateActivity.class));

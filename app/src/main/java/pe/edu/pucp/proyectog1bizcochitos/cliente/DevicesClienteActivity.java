@@ -55,6 +55,9 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
     private ArrayList<Device> listadevices = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private ProgressBar progressBar;
+    ChildEventListener listener;
+    DatabaseReference databaseReference;
+    DatabaseReference refdev;
 
 
     @Override
@@ -65,7 +68,13 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         TextView tipo = findViewById(R.id.textTipo);
         TextView marca = findViewById(R.id.textMarca);
         ImageButton clearsearch = findViewById(R.id.btnClearsearch);
+        mRecyclerView = findViewById(R.id.recyclerDevicesClient);
         progressBar = findViewById(R.id.progressBarDeviceClient);
+        progressBar.setVisibility(View.GONE);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        refdev = databaseReference.child("devices");
+
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -153,34 +162,16 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
     }
 
     public void openListRecycler(String tipo, String marca) {
-//        FragmentManager fm = getSupportFragmentManager();
-//
-//        Fragment cFragmentOld = fm.findFragmentById(R.id.fragmentdeviceCliente);
-//        if (cFragmentOld != null) {
-//            fm.beginTransaction().remove(cFragmentOld).commit();
-//        }
-        mRecyclerView = findViewById(R.id.recyclerDevicesClient);
+        progressBar.setVisibility(View.VISIBLE);
+
         DevicesAdapter crAdapter = new DevicesAdapter(listadevices, DevicesClienteActivity.this, "Cliente");
         mRecyclerView.setAdapter(crAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(DevicesClienteActivity.this));
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-
-
-//        Device d= new Device();
-//        DatabaseReference refgenerado = databaseReference.child("devices").push();
-//        d.setDeviceId(refgenerado.getKey());
-//
-//
-//        refgenerado.setValue(d).addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void aVoid) {
-//
-//            }
-//        });
-
-
-        databaseReference.child("devices").addChildEventListener(new ChildEventListener() {
+        if (listener != null) {
+            refdev.removeEventListener(listener);
+        }
+        listener = databaseReference.child("devices").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Device device = snapshot.getValue(Device.class);
@@ -195,12 +186,17 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                listadevices = new ArrayList<>();
+                mRecyclerView.getAdapter().notifyItemInserted(listadevices.size());
+                openListRecycler("", "");
 
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+                listadevices = new ArrayList<>();
+                mRecyclerView.getAdapter().notifyItemInserted(listadevices.size());
+                openListRecycler("", "");
             }
 
             @Override
@@ -214,11 +210,6 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
             }
         });
 
-
-//        DeviceClientFragment cFragment = DeviceClientFragment.newInstance(lista);
-//        fm.beginTransaction()
-//                .add(R.id.fragmentdeviceCliente, cFragment)
-//                .commit();
     }
 
     public void openDetailsFragment(String id) {
@@ -290,9 +281,10 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
             fm.popBackStack();
             fm.beginTransaction().remove(cFragmentOld).commit();
         }
+        View view = findViewById(R.id.fragmentDeviceClient);
+        view.setVisibility(View.GONE);
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -333,10 +325,12 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         switch (item.getItemId()) {
             case R.id.nav_soli:
                 startActivity(new Intent(DevicesClienteActivity.this, SolicitudesCliente.class));
+                finish();
                 break;
 
             case R.id.nav_hist:
                 startActivity(new Intent(DevicesClienteActivity.this, HistoryCliente.class));
+                finish();
                 break;
 
             case R.id.nav_logout:
@@ -353,5 +347,13 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (listener != null) {
+            refdev.removeEventListener(listener);
+        }
     }
 }

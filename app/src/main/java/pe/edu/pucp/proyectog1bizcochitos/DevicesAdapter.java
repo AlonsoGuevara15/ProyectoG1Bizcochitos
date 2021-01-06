@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import pe.edu.pucp.proyectog1bizcochitos.clases.Device;
 import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesClienteActivity;
+import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTiActivity;
 
 public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceViewHolder> {
     private static ArrayList<Device> lista;
@@ -61,7 +62,6 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
 
                 break;
             case "Admin":
-
                 holder.btnDetails.setVisibility(View.GONE);
                 holder.btnDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -72,7 +72,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DeviceVi
                 holder.btnEdit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        ((DevicesTiActivity)contexto).openEditFragment(lista.get(position).getDeviceId());
                     }
                 });
                 break;

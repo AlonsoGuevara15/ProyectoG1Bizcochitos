@@ -187,6 +187,12 @@ public class NewDeviceActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(idStock.getText().toString())) {
             idStock.setError("Ingrese un precio");
             return;
+        } else {
+            try{
+                Integer.parseInt(idStock.getText().toString());
+            }catch (NumberFormatException e){
+                e.getMessage();
+            }
         }
 
         device.setMarca(idMarca.getText().toString());

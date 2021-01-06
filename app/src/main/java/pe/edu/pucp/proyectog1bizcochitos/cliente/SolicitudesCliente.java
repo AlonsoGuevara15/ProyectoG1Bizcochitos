@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,24 +20,33 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import pe.edu.pucp.proyectog1bizcochitos.MainActivity;
 import pe.edu.pucp.proyectog1bizcochitos.R;
+import pe.edu.pucp.proyectog1bizcochitos.SolicitudesClienteAdapter;
+import pe.edu.pucp.proyectog1bizcochitos.clases.Solicitud;
 
 public class SolicitudesCliente extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    RecyclerView recyclerView;
+    SolicitudesClienteAdapter solicitudesClienteAdapter;
+    ArrayList<Solicitud> solicitudes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solicitudes_cliente);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         drawerLayout = findViewById(R.id.drawer_layout2);
@@ -57,6 +68,35 @@ public class SolicitudesCliente extends AppCompatActivity implements NavigationV
         TextView textViewMenuCorreo = headerView.findViewById(R.id.textViewMenuCorreo);
         textViewMenuNombre.setText(currentUser.getDisplayName());
         textViewMenuCorreo.setText(currentUser.getEmail());
+
+
+        recyclerView = findViewById(R.id.rv_solicitud);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        solicitudes = new ArrayList<>();
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.child("requests").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1: snapshot.getChildren()) {
+                    Solicitud solicitud = snapshot1.getValue(Solicitud.class);
+                    if (solicitud.getEstado().equals("Pendiente") && solicitud.getUserid().equals(currentUser.getUid())) {
+                        solicitudes.add(solicitud);
+                    }
+                }
+                solicitudesClienteAdapter = new SolicitudesClienteAdapter(solicitudes);
+                recyclerView.setAdapter(solicitudesClienteAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override

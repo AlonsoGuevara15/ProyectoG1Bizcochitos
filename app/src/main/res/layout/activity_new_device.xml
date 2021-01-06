@@ -10,20 +10,20 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:text="Stock:"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine2"
+        app:layout_constraintEnd_toEndOf="@+id/idIncluye"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
+        app:layout_constraintStart_toStartOf="@+id/idIncluye"
+        app:layout_constraintTop_toBottomOf="@+id/idIncluye" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine2"
+        android:id="@+id/idIncluye"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
@@ -36,81 +36,65 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:text="Incluye:"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextMultiLine"
+        app:layout_constraintEnd_toEndOf="@+id/idCarac"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextMultiLine"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+        app:layout_constraintStart_toStartOf="@+id/idCarac"
+        app:layout_constraintTop_toBottomOf="@+id/idCarac" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:text="Características:"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
+        app:layout_constraintEnd_toEndOf="@+id/idMarca"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintStart_toStartOf="@+id/idMarca"
+        app:layout_constraintTop_toBottomOf="@+id/idMarca" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:text="Marca:"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="@+id/idSpinner"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintStart_toStartOf="@+id/idSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/idSpinner" />
 
     <ImageView
         android:id="@+id/selectedImage"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginBottom="24dp"
-        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/idNamePhoto"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/idNamePhoto"
-        app:layout_constraintTop_toBottomOf="@+id/idNamePhoto"
-        app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@drawable/ic_action_imageupload" />
-
-    <EditText
-        android:id="@+id/idNamePhoto"
-        android:layout_width="188dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="Nombre de la foto"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        tools:srcCompat="@drawable/ic_request" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:text="Foto:"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName3"
+        app:layout_constraintEnd_toEndOf="@+id/idStock"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName3"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintStart_toStartOf="@+id/idStock"
+        app:layout_constraintTop_toBottomOf="@+id/idStock" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_camera"
@@ -118,7 +102,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:clickable="true"
-        android:contentDescription="@string/todo"
         android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/add_image"
         app:layout_constraintEnd_toEndOf="@+id/add_image"
@@ -131,13 +114,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:contentDescription="@string/todo"
         app:fabSize="auto"
         app:layout_constraintBottom_toTopOf="@+id/add_storage"
         app:layout_constraintEnd_toEndOf="@+id/add_storage"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/add_storage"
-        app:srcCompat="@drawable/ic_action_imageuploadd" />
+        app:srcCompat="@drawable/ic_action_gallery" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_storage"
@@ -147,8 +129,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginEnd="116dp"
         android:layout_marginBottom="8dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/ic_action_uploadd"
+        android:src="@drawable/ic_image_upload"
         app:fabSize="auto"
         app:layout_constraintBottom_toTopOf="@+id/btnSubir"
         app:layout_constraintEnd_toEndOf="@+id/btnSubir"
@@ -162,6 +143,7 @@
         android:layout_marginStart="72dp"
         android:layout_marginTop="92dp"
         android:layout_marginEnd="34dp"
+        android:onClick="uploadImageToFirebase"
         android:text="Guardar"
         app:layout_constraintBottom_toBottomOf="@+id/selectedImage"
         app:layout_constraintEnd_toEndOf="parent"
@@ -188,7 +170,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="281dp"
         android:layout_marginBottom="680dp"
         android:fontFamily="@font/rubik_bold"
@@ -202,33 +184,36 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/idSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
+        android:entries="@array/tipos"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/idTipoOtro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:ems="10"
         android:hint="Especifique el tipo"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner"
-        app:layout_constraintStart_toEndOf="@+id/spinner"
-        app:layout_constraintTop_toTopOf="@+id/spinner"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/idSpinner"
+        app:layout_constraintStart_toEndOf="@+id/idSpinner"
+        app:layout_constraintTop_toTopOf="@+id/idSpinner"
         app:layout_constraintVertical_bias="0.761" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/idMarca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/textView7"
@@ -237,10 +222,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/idCarac"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
@@ -250,12 +235,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/idStock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number|textPersonName"
+        android:numeric="integer"
         app:layout_constraintEnd_toEndOf="@+id/textView12"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView12"

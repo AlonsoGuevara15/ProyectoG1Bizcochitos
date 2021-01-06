@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -22,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
+
+import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
 
 public class SplashActivity extends AppCompatActivity {
 

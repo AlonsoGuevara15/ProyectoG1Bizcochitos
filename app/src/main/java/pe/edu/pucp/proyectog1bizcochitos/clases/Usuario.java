@@ -1,8 +1,9 @@
-package pe.edu.pucp.proyectog1bizcochitos;
+package pe.edu.pucp.proyectog1bizcochitos.clases;
 
 public class Usuario {
 
     private String nombre, correo, codigo;
+    private String rol = "Cliente";
 
     public Usuario() {
 
@@ -36,5 +37,13 @@ public class Usuario {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

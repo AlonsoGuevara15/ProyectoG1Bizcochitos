@@ -65,6 +65,7 @@ public class NewDeviceActivity extends AppCompatActivity {
     FirebaseUser currentUser;
     DatabaseReference databaseReference;
     StorageReference storageReference;
+    DatabaseReference deviceIdRef;
     StorageTask uploadTask = null;
     public static final int CAMERA_PERMISSION = 5;
     public static final int CAMERA_UPLOAD = 7;
@@ -73,6 +74,8 @@ public class NewDeviceActivity extends AppCompatActivity {
     Bitmap bitmap;
     Boolean isCamera;
     Device device;
+    Spinner spinner;
+    String tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,19 +101,18 @@ public class NewDeviceActivity extends AppCompatActivity {
 
         String[] lista = {"Laptop", "Tableta", "Celular", "Monitor", "Otro"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, lista);
-
-
-        Spinner spinner = findViewById(R.id.idSpinner);
+        spinner = findViewById(R.id.idSpinner);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String itemAtPosition = (String) parent.getItemAtPosition(position);
+                Log.d("infoAppp",itemAtPosition );
                 if (itemAtPosition.equals("Otro")) {
                     idTipoOtro.setVisibility(View.VISIBLE);
-                    device.setTipo(idTipoOtro.getText().toString());
+                    tipo = idTipoOtro.getText().toString();
                 } else {
-                    device.setTipo(itemAtPosition);
+                    tipo = itemAtPosition;
                 }
             }
 
@@ -120,7 +122,7 @@ public class NewDeviceActivity extends AppCompatActivity {
             }
         });
 
-       setFloatingButton();
+        setFloatingButton();
 
     }
 
@@ -189,9 +191,9 @@ public class NewDeviceActivity extends AppCompatActivity {
         device.setIncluye(idIncluye.getText().toString());
         device.setStock(Integer.parseInt(idStock.getText().toString()));
 
-        DatabaseReference deviceIdRef = databaseReference.child("devices").push();
+        deviceIdRef = databaseReference.child("devices").push();
         device.setDeviceId(deviceIdRef.getKey());
-
+        device.setTipo(tipo);
 
         deviceIdRef.setValue(device)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -214,10 +216,7 @@ public class NewDeviceActivity extends AppCompatActivity {
 
     public void uploadImage() {
 
-        if (currentUser != null) {
-            currentUser.reload();
-
-            if (!isCamera) {
+        if (!isCamera) {
 
                 if (imgURL != null) {
                     uploadTask = storageReference.child("Imagenes").child(device.getDeviceId() + ".jpg")
@@ -281,7 +280,7 @@ public class NewDeviceActivity extends AppCompatActivity {
                 }
             }
         }
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

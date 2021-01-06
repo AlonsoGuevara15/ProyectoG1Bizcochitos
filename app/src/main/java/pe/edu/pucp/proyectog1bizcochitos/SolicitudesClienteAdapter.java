@@ -42,7 +42,7 @@ public class SolicitudesClienteAdapter extends RecyclerView.Adapter<SolicitudesC
         Solicitud solicitud = listaSolicitudes.get(position);
 
         solicitudViewHolder.dispositivoRV.setText(solicitud.getDeviceid());
-        solicitudViewHolder.motivoRV.setText(solicitud.getMotivo());
+        solicitudViewHolder.motivoRV.setText("Motivo: "+solicitud.getMotivo());
         solicitudViewHolder.direccionRV.setText(solicitud.getDireccion());
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();

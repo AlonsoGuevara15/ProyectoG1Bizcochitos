@@ -63,6 +63,9 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
     ChildEventListener listener;
     DatabaseReference databaseReference;
     DatabaseReference refdev;
+    TextView tipo;
+    TextView marca;
+
 
 
     @Override
@@ -70,8 +73,8 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_cliente);
         setACtionBarDrawer();
-        TextView tipo = findViewById(R.id.textTipo);
-        TextView marca = findViewById(R.id.textMarca);
+         tipo = findViewById(R.id.textTipo);
+         marca = findViewById(R.id.textMarca);
         ImageButton clearsearch = findViewById(R.id.btnClearsearch);
         mRecyclerView = findViewById(R.id.recyclerDevicesClient);
         progressBar = findViewById(R.id.progressBarDeviceClient);
@@ -167,7 +170,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
 
     }
 
-    public void openListRecycler(String tipo, String marca) {
+    public void openListRecycler(String t, String m) {
         progressBar.setVisibility(View.VISIBLE);
 
         DevicesAdapter crAdapter = new DevicesAdapter(listadevices, DevicesClienteActivity.this, "Cliente");
@@ -181,7 +184,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Device device = snapshot.getValue(Device.class);
-                if (device.getTipo().toLowerCase().contains(tipo.toLowerCase()) && device.getMarca().toLowerCase().contains(marca.toLowerCase())) {
+                if (device.getTipo().toLowerCase().contains(t.toLowerCase()) && device.getMarca().toLowerCase().contains(m.toLowerCase())) {
                     progressBar.setVisibility(View.VISIBLE);
                     listadevices.add(device);
                     mRecyclerView.getAdapter().notifyItemInserted(listadevices.size());
@@ -194,7 +197,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 listadevices = new ArrayList<>();
                 mRecyclerView.getAdapter().notifyItemInserted(listadevices.size());
-                openListRecycler("", "");
+                openListRecycler(tipo.getText().toString(), marca.getText().toString());
 
             }
 
@@ -202,7 +205,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 listadevices = new ArrayList<>();
                 mRecyclerView.getAdapter().notifyItemInserted(listadevices.size());
-                openListRecycler("", "");
+                openListRecycler(tipo.getText().toString(), marca.getText().toString());
             }
 
             @Override

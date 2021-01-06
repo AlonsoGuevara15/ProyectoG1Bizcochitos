@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -52,6 +55,7 @@ import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
 public class DevicesClienteActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -65,7 +69,6 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
     DatabaseReference refdev;
     TextView tipo;
     TextView marca;
-
 
 
     @Override
@@ -82,6 +85,8 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         databaseReference = FirebaseDatabase.getInstance().getReference();
         refdev = databaseReference.child("devices");
 
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         permissions();
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -379,6 +384,17 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
 
             return;
         }
+
+        fusedLocationProviderClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            Log.d("infoApp", "Latitud: " + location.getLatitude() + " | Longitud: " + location.getLongitude());
+
+                        }
+                    }
+                });
     }
 
     public void goGoogleMaps (View view) {

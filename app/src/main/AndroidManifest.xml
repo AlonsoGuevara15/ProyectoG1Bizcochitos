@@ -40,16 +40,26 @@
             android:name=".cliente.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
 
-        <activity android:name=".usuarioTI.NewDeviceActivity">
+        <activity android:name=".usuarioTI.NewDeviceActivity"
+
+            android:screenOrientation="portrait" >
 
         </activity>
-        <activity android:name=".usuarioTI.PedidosTiActivity" />
-        <activity android:name=".usuarioTI.DevicesTiActivity" />
-        <activity android:name=".cliente.HistoryCliente" />
-        <activity android:name=".cliente.SolicitudesCliente" />
-        <activity android:name=".cliente.DevicesClienteActivity" />
-        <activity android:name=".RegistrateActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".usuarioTI.PedidosTiActivity"
+
+            android:screenOrientation="portrait" />
+        <activity android:name=".usuarioTI.DevicesTiActivity"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".cliente.HistoryCliente"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".cliente.SolicitudesCliente"
+            android:screenOrientation="portrait" />
+        <activity android:name=".cliente.DevicesClienteActivity"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".RegistrateActivity"
+            android:screenOrientation="portrait"  />
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

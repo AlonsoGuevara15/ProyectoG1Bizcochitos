@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="8dp"
+    android:layout_margin="10dp"
+    android:padding="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button">
+
+
+        <TextView
+            android:id="@+id/textViewSoliDispositivoRVti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo"
+            android:text=":"
+            android:textColor="#000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="29dp"
+            tools:layout_conversion_absoluteWidth="84dp" />
+
+        <TextView
+            android:id="@+id/textViewRemitenteti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/antic"
+            android:text="De: "
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/textViewSoliDispositivoRVti"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSoliDispositivoRVti"
+            tools:layout_conversion_absoluteHeight="14dp"
+            tools:layout_conversion_absoluteWidth="30dp"/>
+
+        <TextView
+            android:id="@+id/textViewSoliMotivoRVti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/antic"
+            android:text="Motivo"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/textViewRemitenteti"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRemitenteti"
+            tools:layout_conversion_absoluteHeight="14dp"
+            tools:layout_conversion_absoluteWidth="30dp" />
+
+        <TextView
+            android:id="@+id/textViewSoliDireccRVti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/antic"
+            android:text="Dirección"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/textViewSoliMotivoRVti"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSoliMotivoRVti"
+            tools:layout_conversion_absoluteHeight="14dp"
+            tools:layout_conversion_absoluteWidth="40dp" />
+
+        <ImageButton
+            android:id="@+id/imageButtonAceptar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewSoliDireccRVti"
+            app:layout_constraintEnd_toStartOf="@+id/imageButtonRechazar"
+            app:layout_constraintTop_toTopOf="@+id/textViewSoliDispositivoRVti"
+            app:layout_constraintVertical_bias="0.538"
+            app:srcCompat="@drawable/ic_check" />
+
+        <ImageButton
+            android:id="@+id/imageButtonRechazar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButtonAceptar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageButtonAceptar"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_clear_search" />
+
+        <TextView
+            android:id="@+id/textViewEstadopedidoTI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACEPTADO"
+            android:fontFamily="@font/antic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSoliDireccRVti" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

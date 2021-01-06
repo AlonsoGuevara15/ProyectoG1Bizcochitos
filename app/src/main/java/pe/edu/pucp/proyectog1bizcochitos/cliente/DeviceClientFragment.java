@@ -10,12 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import pe.edu.pucp.proyectog1bizcochitos.R;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Device;
 
@@ -55,12 +49,12 @@ public class DeviceClientFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_device_client, container, false);
-        TextView detailtipo = view.findViewById(R.id.detailtipo);
+        TextView detailtipo = view.findViewById(R.id.nombrerechazado);
         TextView detailMarca = view.findViewById(R.id.detailMarca);
         TextView detailIncludes = view.findViewById(R.id.detailIncludes);
         TextView detailcaract = view.findViewById(R.id.detailcaract);
         TextView detailStock = view.findViewById(R.id.detailStock);
-        Button btnReserva = view.findViewById(R.id.btnReserva);
+        Button btnReserva = view.findViewById(R.id.btnRechazo);
 
 
         detailtipo.setText(device.getTipo());

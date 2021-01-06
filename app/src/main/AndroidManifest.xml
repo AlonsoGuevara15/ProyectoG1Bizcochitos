@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/miTema">
         <activity android:name=".usuarioTI.NewDeviceActivity"></activity>
-        <activity android:name=".usuarioTI.PedidosTi" />
+        <activity android:name=".usuarioTI.PedidosTiActivity" />
         <activity android:name=".usuarioTI.DevicesTiActivity" />
         <activity android:name=".cliente.HistoryCliente" />
         <activity android:name=".cliente.SolicitudesCliente" />

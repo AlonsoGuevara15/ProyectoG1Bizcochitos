@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Solicitud implements Serializable {
     private String estado = "Pendiente";
-    private String motivo, direccion,userid;
+    private String justifrechazo ="",motivo, direccion, userid;
     private String solicId = "";
     private double lat = 0, lon = 0;
     private String deviceid;
@@ -104,5 +104,13 @@ public class Solicitud implements Serializable {
 
     public void setUserid(String userid) {
         this.userid = userid;
+    }
+
+    public String getJustifrechazo() {
+        return justifrechazo;
+    }
+
+    public void setJustifrechazo(String justifrechazo) {
+        this.justifrechazo = justifrechazo;
     }
 }

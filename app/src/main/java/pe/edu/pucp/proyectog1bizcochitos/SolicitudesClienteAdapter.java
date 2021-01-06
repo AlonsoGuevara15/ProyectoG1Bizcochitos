@@ -52,15 +52,15 @@ public class SolicitudesClienteAdapter extends RecyclerView.Adapter<SolicitudesC
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1: snapshot.getChildren()) {
                     Device device = snapshot1.getValue(Device.class);
-                    if (device.getDeviceId().equals(solicitudViewHolder.dispositivoRV.getText())) {
-                        solicitudViewHolder.dispositivoRV.setText(device.getTipo());
+                    if (device!=null) {
+                        if (device.getDeviceId().equals(solicitudViewHolder.dispositivoRV.getText())) {
+                            solicitudViewHolder.dispositivoRV.setText(device.getTipo()+ " - " + device.getMarca());
+                        }
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

@@ -53,7 +53,7 @@ public class ReservaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_reserva, container, false);
+        View view = inflater.inflate(R.layout.fragment_reserva, container, false);
 
 
         TextView detailtipo = view.findViewById(R.id.detailtipo2);
@@ -68,11 +68,28 @@ public class ReservaFragment extends Fragment {
         btnReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                if (currentUser != null) {
-                    ((DevicesClienteActivity) getActivity()).saveSolicitud(new Solicitud(editTextMotivo.getText().toString(), editTextDireccion.getText().toString(), device.getDeviceId(), detailStock.isChecked(), currentUser.getUid()));
-                }else{
-                    getActivity().finish();
+                boolean valid = true;
+
+                String direccion = editTextDireccion.getText().toString();
+                if (direccion.trim().equals("")) {
+                    editTextDireccion.setError("Debe llenar este campo");
+                    valid = false;
+                }
+
+                String motivo = editTextMotivo.getText().toString();
+                if (motivo.trim().equals("")) {
+                    editTextMotivo.setError("Debe llenar este campo");
+                    valid = false;
+                }
+
+
+                if (valid) {
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (currentUser != null) {
+                        ((DevicesClienteActivity) getActivity()).saveSolicitud(new Solicitud(motivo, direccion, device.getDeviceId(), detailStock.isChecked(), currentUser.getUid()));
+                    } else {
+                        getActivity().finish();
+                    }
                 }
             }
         });

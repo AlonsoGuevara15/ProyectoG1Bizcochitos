@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".usuarioTI.PedidosTi"
+    tools:context=".usuarioTI.PedidosTiActivity"
     android:id="@+id/drawer_layout5"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
@@ -17,29 +17,83 @@
         app:menu="@menu/usuario_menu"
         android:layout_gravity="start"/>
 
-    <ScrollView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="#9b9b9b"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_menu" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar5"
-                android:layout_width="match_parent"
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#9b9b9b"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar5">
+
+            <ImageView
+                android:id="@+id/imageViewSoli"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_request"
+                app:srcCompat="@drawable/ic_reserva" />
+
+            <TextView
+                android:id="@+id/textViewSolicitudTitulo"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#9b9b9b"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:navigationIcon="@drawable/ic_menu" />
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/imageViewSoli"
+                android:fontFamily="@font/bungee"
+                android:includeFontPadding="false"
+                android:text="Reservas"
+                android:textColor="#F4F4F4"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerReservasTI"
+            android:layout_width="358dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout5" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragmentPedidosTI"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar5">
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
 
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

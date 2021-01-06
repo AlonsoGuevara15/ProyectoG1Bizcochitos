@@ -101,7 +101,7 @@ public class EditDeviceFragment extends Fragment {
                         valid = false;
                     }
                     if (valid) {
-                        ((DevicesTiActivity) getActivity()).updateCampos(new Device(marca, incluye, caract, device.getDeviceId(), stock));
+                        ((DevicesTiActivity) getActivity()).updateCampos(new Device(marca,caract, incluye,  device.getDeviceId(), stock));
                     }
                 } catch (NumberFormatException e) {
                     editTextStockedit.setError("Debe ser número");

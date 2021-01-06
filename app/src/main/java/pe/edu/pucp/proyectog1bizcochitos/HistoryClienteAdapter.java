@@ -50,8 +50,10 @@ public class HistoryClienteAdapter extends RecyclerView.Adapter<HistoryClienteAd
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1: snapshot.getChildren()) {
                     Device device = snapshot1.getValue(Device.class);
-                    if (device.getDeviceId().equals(solicitudViewHolder.dispositivoRV.getText())) {
-                        solicitudViewHolder.dispositivoRV.setText(device.getTipo() + " - " + device.getMarca());
+                    if (device!=null) {
+                        if (device.getDeviceId().equals(solicitudViewHolder.dispositivoRV.getText())) {
+                            solicitudViewHolder.dispositivoRV.setText(device.getTipo() + " - " + device.getMarca());
+                        }
                     }
                 }
             }

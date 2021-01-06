@@ -3,11 +3,11 @@ package pe.edu.pucp.proyectog1bizcochitos.clases;
 import java.io.Serializable;
 
 public class Solicitud implements Serializable {
-    private String estado="Pendiente";
-    private String motivo,direccion;
-    private String solicId="";
-    private double lat,lon;
-    private Device device;
+    private String estado = "Pendiente";
+    private String motivo, direccion;
+    private String solicId = "";
+    private double lat = 0, lon = 0;
+    private String deviceid;
     private boolean correoNotif;
 
 
@@ -15,14 +15,21 @@ public class Solicitud implements Serializable {
 
     }
 
-    public Solicitud(String estado, String motivo, String direccion, String solicId, double lat, double lon, Device device, boolean correoNotif) {
+    public Solicitud(String estado, String motivo, String direccion, String solicId, double lat, double lon, String deviceid, boolean correoNotif) {
         this.estado = estado;
         this.motivo = motivo;
         this.direccion = direccion;
         this.solicId = solicId;
         this.lat = lat;
         this.lon = lon;
-        this.device = device;
+        this.deviceid = deviceid;
+        this.correoNotif = correoNotif;
+    }
+
+    public Solicitud(String motivo, String direccion, String deviceid, boolean correoNotif) {
+        this.motivo = motivo;
+        this.direccion = direccion;
+        this.deviceid = deviceid;
         this.correoNotif = correoNotif;
     }
 
@@ -58,12 +65,12 @@ public class Solicitud implements Serializable {
         this.lon = lon;
     }
 
-    public Device getDevice() {
-        return device;
+    public String getDeviceid() {
+        return deviceid;
     }
 
-    public void setDevice(Device device) {
-        this.device = device;
+    public void setDeviceid(String deviceid) {
+        this.deviceid = deviceid;
     }
 
     public String getMotivo() {

@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
+import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesClienteActivity;
 
 import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
 import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTi;
@@ -75,7 +75,7 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
                     } else {
                         if(usuario.getRol().equals("Cliente")) {
-                            startActivity(new Intent(SplashActivity.this, DevicesCliente.class));
+                            startActivity(new Intent(SplashActivity.this, DevicesClienteActivity.class));
                             finish();
                         } else if(usuario.getRol().equals("Admin")) {
                             startActivity(new Intent(SplashActivity.this, DevicesTi.class));

@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
 
-import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
+import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesClienteActivity;
 
 import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
 import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTi;
@@ -113,7 +113,7 @@ public class RegistrateActivity extends AppCompatActivity {
                     Log.d("infoApp", usuario.getCodigo());
 
                     if (usuario.getRol().equals("Cliente")) {
-                        startActivity(new Intent(RegistrateActivity.this, DevicesCliente.class));
+                        startActivity(new Intent(RegistrateActivity.this, DevicesClienteActivity.class));
                         finish();
                     } else if (usuario.getRol().equals("Admin")) {
                         startActivity(new Intent(RegistrateActivity.this, DevicesTi.class));

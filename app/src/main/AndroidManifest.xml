@@ -13,7 +13,7 @@
         <activity android:name=".usuarioTI.DevicesTi" />
         <activity android:name=".cliente.HistoryCliente" />
         <activity android:name=".cliente.SolicitudesCliente" />
-        <activity android:name=".cliente.DevicesCliente" />
+        <activity android:name=".cliente.DevicesClienteActivity" />
         <activity android:name=".RegistrateActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>

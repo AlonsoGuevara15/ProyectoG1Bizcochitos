@@ -23,9 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import pe.edu.pucp.proyectog1bizcochitos.MainActivity;
 import pe.edu.pucp.proyectog1bizcochitos.R;
-import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
-import pe.edu.pucp.proyectog1bizcochitos.cliente.HistoryCliente;
-import pe.edu.pucp.proyectog1bizcochitos.cliente.SolicitudesCliente;
 
 public class DevicesTi extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 

@@ -72,7 +72,7 @@ public class SolicitudesCliente extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_disp:
-                startActivity(new Intent(SolicitudesCliente.this, DevicesCliente.class));
+                startActivity(new Intent(SolicitudesCliente.this, DevicesClienteActivity.class));
                 break;
 
             case R.id.nav_hist:

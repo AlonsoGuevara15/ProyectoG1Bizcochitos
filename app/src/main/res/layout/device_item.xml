@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5sp"
+    android:padding="15sp">
+
+    <TextView
+        android:id="@+id/tipodevice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Tipo"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDetails"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/marcadevice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Holaaaa"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/tipodevice"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/tipodevice"
+        app:layout_constraintTop_toBottomOf="@+id/tipodevice" />
+
+
+    <ImageButton
+        android:id="@+id/btnDetails"
+        android:layout_width="48dp"
+        android:layout_height="45dp"
+        android:contentDescription="hola"
+        app:layout_constraintBottom_toBottomOf="@+id/marcadevice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.926"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tipodevice"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_details" />
+
+
+        <ImageButton
+        android:id="@+id/btnEdit"
+        android:layout_width="48dp"
+        android:layout_height="45dp"
+        android:contentDescription="hola"
+        app:layout_constraintBottom_toBottomOf="@+id/marcadevice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.734"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tipodevice"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_edit" />
+
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="48dp"
+        android:layout_height="45dp"
+        android:contentDescription="hola"
+        app:layout_constraintBottom_toBottomOf="@+id/btnEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toEndOf="@+id/btnEdit"
+        app:layout_constraintTop_toTopOf="@+id/btnEdit"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_delete" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

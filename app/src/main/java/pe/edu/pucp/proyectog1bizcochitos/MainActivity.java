@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.List;
 
-import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesCliente;
+import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesClienteActivity;
 
 import pe.edu.pucp.proyectog1bizcochitos.clases.Usuario;
 import pe.edu.pucp.proyectog1bizcochitos.usuarioTI.DevicesTi;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     } else {
                         if(usuario.getRol().equals("Cliente")) {
-                            startActivity(new Intent(MainActivity.this, DevicesCliente.class));
+                            startActivity(new Intent(MainActivity.this, DevicesClienteActivity.class));
                             finish();
                         } else if(usuario.getRol().equals("Admin")) {
                             startActivity(new Intent(MainActivity.this, DevicesTi.class));

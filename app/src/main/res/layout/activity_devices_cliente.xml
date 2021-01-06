@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".cliente.DevicesCliente"
+    tools:context=".cliente.DevicesClienteActivity"
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
+
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -17,29 +19,97 @@
         app:menu="@menu/cliente_menu"
         android:layout_gravity="start"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="#9b9b9b"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:navigationIcon="@drawable/ic_menu" />
 
+            <EditText
+                android:id="@+id/textTipo"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="24dp"
+                android:hint="Tipo..."
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+            <EditText
+                android:id="@+id/textMarca"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:inputType="textPersonName"
+                android:hint="Marca..."
+                app:layout_constraintBottom_toBottomOf="@+id/textTipo"
+                app:layout_constraintStart_toEndOf="@+id/textTipo"
+                app:layout_constraintTop_toTopOf="@+id/textTipo"
+                app:layout_constraintVertical_bias="0.0" />
 
 
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnClearsearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textMarca"
+                app:layout_constraintStart_toEndOf="@+id/textMarca"
+                app:layout_constraintTop_toTopOf="@+id/textMarca"
+                app:srcCompat="@drawable/ic_clear_search" />
 
-    </ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerDevicesClient"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.61"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textTipo"
+                app:layout_constraintVertical_bias="1" />
+
+            <ProgressBar
+                android:id="@+id/progressBarDeviceClient"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="30dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnClearsearch"
+                app:layout_constraintStart_toEndOf="@+id/btnClearsearch"
+                app:layout_constraintTop_toTopOf="@+id/btnClearsearch" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragmentDeviceClient"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

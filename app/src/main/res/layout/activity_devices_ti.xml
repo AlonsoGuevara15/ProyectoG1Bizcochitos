@@ -9,13 +9,13 @@
     tools:context=".usuarioTI.DevicesTiActivity"
     tools:openDrawer="start">
 
-<!--        <com.google.android.material.navigation.NavigationView-->
-<!--            android:id="@+id/nav_view4"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:headerLayout="@layout/header_layout"-->
-<!--            app:menu="@menu/usuario_menu"-->
-<!--            android:layout_gravity="start"/>-->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:headerLayout="@layout/header_layout"
+            app:menu="@menu/usuario_menu"
+            android:layout_gravity="start"/>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

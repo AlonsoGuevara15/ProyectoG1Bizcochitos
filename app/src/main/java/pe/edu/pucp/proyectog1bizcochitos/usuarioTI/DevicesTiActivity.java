@@ -65,6 +65,13 @@ public class DevicesTiActivity extends AppCompatActivity implements NavigationVi
         setACtionBarDrawer();
         mRecyclerView = findViewById(R.id.recyclerDevicesTI);
         FloatingActionButton mAdd = findViewById(R.id.floatingAddDevice);
+        mAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DevicesTiActivity.this,NewDeviceActivity.class));
+                finish();
+            }
+        });
         databaseReference = FirebaseDatabase.getInstance().getReference();
         refdev= databaseReference.child("devices");
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

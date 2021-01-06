@@ -113,7 +113,7 @@ public class NewDeviceActivity extends AppCompatActivity {
 
                 if (item.equals("Otro")) {
                     tipo = idTipoEsp.getText().toString();
-                    Log.d("infoApp",tipo);
+                    Log.d("infoApp", tipo);
                 } else {
                     tipo = item;
                 }
@@ -188,9 +188,9 @@ public class NewDeviceActivity extends AppCompatActivity {
             idStock.setError("Ingrese un precio");
             return;
         } else {
-            try{
+            try {
                 Integer.parseInt(idStock.getText().toString());
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 e.getMessage();
             }
         }
@@ -252,71 +252,72 @@ public class NewDeviceActivity extends AppCompatActivity {
 
         if (!isCamera) {
 
-                if (imgURL != null) {
-                    uploadTask = storageReference.child("Imagenes").child(keyDev + ".jpg")
-                            .putFile(imgURL)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    Toast.makeText(NewDeviceActivity.this, "Archivo subido exitosamente", Toast.LENGTH_SHORT).show();
-                                    Log.d("infoApp", "subida exitosa");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d("infoApp", "Error en la subida");
-                                    e.printStackTrace();
-                                }
-                            })
-                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                    long bytesTransferred = snapshot.getBytesTransferred();
-                                    long totalByteCount = snapshot.getTotalByteCount();
-                                    double progreso = (int) Math.round((100.0 * bytesTransferred) / totalByteCount);
-                                    Log.d("infoApp", "progreso: " + progreso + "%");
-                                }
-                            });
-                }
-            } else {
+            if (imgURL != null) {
+                uploadTask = storageReference.child("Imagenes").child(keyDev + ".jpg")
+                        .putFile(imgURL)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(NewDeviceActivity.this, "Archivo subido exitosamente", Toast.LENGTH_SHORT).show();
+                                Log.d("infoApp", "subida exitosa");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("infoApp", "Error en la subida");
+                                e.printStackTrace();
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                                long bytesTransferred = snapshot.getBytesTransferred();
+                                long totalByteCount = snapshot.getTotalByteCount();
+                                double progreso = (int) Math.round((100.0 * bytesTransferred) / totalByteCount);
+                                Log.d("infoApp", "progreso: " + progreso + "%");
+                            }
+                        });
+            }
+        } else {
 
-                if (bitmap != null) {
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] data = baos.toByteArray();
+            if (bitmap != null) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
 
-                    uploadTask = storageReference.child("Imagenes").child(keyDev  + ".jpg")
-                            .putBytes(data)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    Toast.makeText(NewDeviceActivity.this, "Archivo subido exitosamente", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(NewDeviceActivity.this, DevicesTiActivity.class);
-                                    startActivity(intent);
-                                    Log.d("infoApp", "subida exitosa");
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d("infoApp", "Error en la subida");
-                                    e.printStackTrace();
-                                }
-                            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                    long bytesTransferred = snapshot.getBytesTransferred();
-                                    long totalByteCount = snapshot.getTotalByteCount();
-                                    double progreso = (int) Math.round((100.0 * bytesTransferred) / totalByteCount);
-                                    Log.d("infoApp", "progreso: " + progreso + "%");
-                                }
-                            });
+                uploadTask = storageReference.child("Imagenes").child(keyDev + ".jpg")
+                        .putBytes(data)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(NewDeviceActivity.this, "Archivo subido exitosamente", Toast.LENGTH_SHORT).show();
+                                Log.d("infoApp", "subida exitosa");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("infoApp", "Error en la subida");
+                                e.printStackTrace();
+                            }
+                        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                                long bytesTransferred = snapshot.getBytesTransferred();
+                                long totalByteCount = snapshot.getTotalByteCount();
+                                double progreso = (int) Math.round((100.0 * bytesTransferred) / totalByteCount);
+                                Log.d("infoApp", "progreso: " + progreso + "%");
+                            }
+                        });
 
-                }
+                Intent intent = new Intent(NewDeviceActivity.this, DevicesTiActivity.class);
+                startActivity(intent);
+                Log.d("infoApp", "subida exitosa");
+                finish();
             }
         }
+    }
 
 
     @Override

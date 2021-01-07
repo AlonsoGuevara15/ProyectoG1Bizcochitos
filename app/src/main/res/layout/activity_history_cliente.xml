@@ -30,7 +30,7 @@
                 android:id="@+id/toolbar3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#9b9b9b"
+                android:background="#ffc08c"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme"
                 app:navigationIcon="@drawable/ic_menu" />
@@ -38,7 +38,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="#9b9b9b"
+                android:background="#ffc08c"
                 android:padding="20dp">
 
                 <ImageView

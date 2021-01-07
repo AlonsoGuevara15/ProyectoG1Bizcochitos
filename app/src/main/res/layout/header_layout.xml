@@ -31,4 +31,13 @@
         android:textColor="#f4f4f4"
         android:textSize="10sp"/>
 
+    <TextView
+        android:id="@+id/textViewMenuRol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/aclonica"
+        android:text="Rol"
+        android:textColor="#F4F4F4"
+        android:textSize="10sp"/>
+
 </LinearLayout>

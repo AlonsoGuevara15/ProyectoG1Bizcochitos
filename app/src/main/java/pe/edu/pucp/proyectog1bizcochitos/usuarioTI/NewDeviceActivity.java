@@ -77,6 +77,7 @@ public class NewDeviceActivity extends AppCompatActivity {
     Spinner spinner;
     String tipo;
     String keyDev;
+    boolean valid=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,53 +176,65 @@ public class NewDeviceActivity extends AppCompatActivity {
 
     public void uploadImageToFirebase(View view) {
 
+
         if (TextUtils.isEmpty(idMarca.getText().toString())) {
             idMarca.setError("Ingrese un nombre de producto");
-            return;
-        } else if (TextUtils.isEmpty(idCarac.getText().toString())) {
+            valid = false;
+        }
+        if (TextUtils.isEmpty(idCarac.getText().toString())) {
             idCarac.setError("Ingrese una categoria");
-            return;
-        } else if (TextUtils.isEmpty(idIncluye.getText().toString())) {
+            valid = false;
+        }
+        if (TextUtils.isEmpty(idIncluye.getText().toString())) {
             idIncluye.setError("Ingrese una descripcion");
-            return;
-        } else if (TextUtils.isEmpty(idStock.getText().toString())) {
+            valid = false;
+        }
+        if (TextUtils.isEmpty(idStock.getText().toString())) {
             idStock.setError("Ingrese un precio");
-            return;
-        } else {
-            try {
-                Integer.parseInt(idStock.getText().toString());
-            } catch (NumberFormatException e) {
-                e.getMessage();
+            valid = false;
+        }
+
+        try {
+            Integer.parseInt(idStock.getText().toString());
+            if (valid) {
+                device.setMarca(idMarca.getText().toString());
+                device.setCaracteristicas(idCarac.getText().toString());
+                device.setIncluye(idIncluye.getText().toString());
+                device.setStock(Integer.parseInt(idStock.getText().toString()));
+
+                deviceIdRef = databaseReference.child("devices").push();
+                keyDev = deviceIdRef.getKey();
+                device.setDeviceId(keyDev);
+                device.setTipo(tipo);
+
+                deviceIdRef.setValue(device)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("infoApp", "info guardada exitosamente");
+                                uploadImage();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("infoApp", "Error al guardar");
+                                e.printStackTrace();
+                            }
+                        });
+
+                Intent intent = new Intent(NewDeviceActivity.this, DevicesTiActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        } catch (NumberFormatException e) {
+                idStock.setError("Ingrese un valor valido");
             }
         }
 
-        device.setMarca(idMarca.getText().toString());
-        device.setCaracteristicas(idCarac.getText().toString());
-        device.setIncluye(idIncluye.getText().toString());
-        device.setStock(Integer.parseInt(idStock.getText().toString()));
 
-        deviceIdRef = databaseReference.child("devices").push();
-        keyDev = deviceIdRef.getKey();
-        device.setDeviceId(keyDev);
-        device.setTipo(tipo);
 
-        deviceIdRef.setValue(device)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("infoApp", "info guardada exitosamente");
-                        uploadImage();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("infoApp", "Error al guardar");
-                        e.printStackTrace();
-                    }
-                });
 
-    }
 
     @Override
     public void onBackPressed() {
@@ -310,11 +323,6 @@ public class NewDeviceActivity extends AppCompatActivity {
                                 Log.d("infoApp", "progreso: " + progreso + "%");
                             }
                         });
-
-                Intent intent = new Intent(NewDeviceActivity.this, DevicesTiActivity.class);
-                startActivity(intent);
-                Log.d("infoApp", "subida exitosa");
-                finish();
             }
         }
     }

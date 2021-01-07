@@ -256,7 +256,7 @@ public class DevicesTiActivity extends AppCompatActivity implements NavigationVi
                 finish();
                 break;
 
-            case R.id.nav_logout:
+            case R.id.nav_logout2:
                 Log.d(TAG,"CLick Cerrar SESION");
                 AuthUI instance = AuthUI.getInstance();
                 instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {

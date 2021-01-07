@@ -206,7 +206,7 @@ public class PedidosTiActivity extends AppCompatActivity implements NavigationVi
                 startActivity(new Intent(PedidosTiActivity.this, DevicesTiActivity.class));
                 break;
 
-            case R.id.nav_logout:
+            case R.id.nav_logout2:
                 AuthUI instance = AuthUI.getInstance();
                 instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

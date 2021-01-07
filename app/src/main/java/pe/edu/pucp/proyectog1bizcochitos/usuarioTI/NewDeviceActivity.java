@@ -49,6 +49,7 @@ import pe.edu.pucp.proyectog1bizcochitos.R;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Device;
 
 public class NewDeviceActivity extends AppCompatActivity {
+    private static final String TAG = "debugeo";
 
     FloatingActionButton btnSto, btnIm, btnCam;
 
@@ -59,6 +60,7 @@ public class NewDeviceActivity extends AppCompatActivity {
     EditText idStock;
     ImageView selectedImage = null;
     Boolean isAllFabsVisible;
+    String itemselected;
 
     private static final int IMAGE_UPLOAD = 1;
     private static final int IMAGE_PERMISSION = 3;
@@ -77,7 +79,7 @@ public class NewDeviceActivity extends AppCompatActivity {
     Spinner spinner;
     String tipo;
     String keyDev;
-    boolean valid=true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,11 +97,12 @@ public class NewDeviceActivity extends AppCompatActivity {
         btnCam = findViewById(R.id.add_camera);
         selectedImage = findViewById(R.id.selectedImage);
 
-        idTipoEsp = findViewById(R.id.idTipoEsp);
+
         idMarca = findViewById(R.id.idMarca);
         idCarac = findViewById(R.id.idCarac);
         idIncluye = findViewById(R.id.idIncluye);
         idStock = findViewById(R.id.idStock);
+        idTipoEsp = findViewById(R.id.idTipoEsp);
 
 
         String[] lista = {"Laptop", "Tableta", "Celular", "Monitor", "Otro"};
@@ -109,14 +112,13 @@ public class NewDeviceActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                String item = lista[position];
-
-                if (item.equals("Otro")) {
-                    tipo = idTipoEsp.getText().toString();
-                    Log.d("infoApp", tipo);
+                Log.d(TAG, "CAMBIADO");
+                String itemsel = lista[position];
+                itemselected = itemsel;
+                if (itemsel.equals("Otro")) {
+                    idTipoEsp.setVisibility(View.VISIBLE);
                 } else {
-                    tipo = item;
+                    idTipoEsp.setVisibility(View.GONE);
                 }
             }
 
@@ -175,8 +177,9 @@ public class NewDeviceActivity extends AppCompatActivity {
     }
 
     public void uploadImageToFirebase(View view) {
+        device = new Device();
 
-
+        boolean valid = true;
         if (TextUtils.isEmpty(idMarca.getText().toString())) {
             idMarca.setError("Ingrese un nombre de producto");
             valid = false;
@@ -192,6 +195,16 @@ public class NewDeviceActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(idStock.getText().toString())) {
             idStock.setError("Ingrese un precio");
             valid = false;
+        }
+        if (itemselected.equals("Otro")) {
+            idTipoEsp = findViewById(R.id.idTipoEsp);
+            tipo = idTipoEsp.getText().toString().trim();
+            if (tipo.equals("")) {
+                idTipoEsp.setError("Ingrese un tipo");
+                valid = false;
+            }
+        } else {
+            tipo = itemselected;
         }
 
         try {
@@ -228,12 +241,9 @@ public class NewDeviceActivity extends AppCompatActivity {
                 finish();
             }
         } catch (NumberFormatException e) {
-                idStock.setError("Ingrese un valor valido");
-            }
+            idStock.setError("Ingrese un valor valido");
         }
-
-
-
+    }
 
 
     @Override

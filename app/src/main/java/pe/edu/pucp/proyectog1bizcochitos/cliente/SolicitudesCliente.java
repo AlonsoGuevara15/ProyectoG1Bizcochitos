@@ -30,7 +30,6 @@ import java.util.ArrayList;
 
 import pe.edu.pucp.proyectog1bizcochitos.MainActivity;
 import pe.edu.pucp.proyectog1bizcochitos.R;
-import pe.edu.pucp.proyectog1bizcochitos.SolicitudesClienteAdapter;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Solicitud;
 
 public class SolicitudesCliente extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{

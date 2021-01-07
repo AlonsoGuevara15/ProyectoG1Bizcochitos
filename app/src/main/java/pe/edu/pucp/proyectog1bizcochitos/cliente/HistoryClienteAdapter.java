@@ -1,4 +1,4 @@
-package pe.edu.pucp.proyectog1bizcochitos;
+package pe.edu.pucp.proyectog1bizcochitos.cliente;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import pe.edu.pucp.proyectog1bizcochitos.R;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Device;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Solicitud;
 

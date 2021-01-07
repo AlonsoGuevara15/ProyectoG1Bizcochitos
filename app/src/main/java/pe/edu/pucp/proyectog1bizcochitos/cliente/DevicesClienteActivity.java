@@ -46,6 +46,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -425,8 +426,10 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         View headerView = navigationView.getHeaderView(0);
         TextView textViewMenuNombre = headerView.findViewById(R.id.textViewMenuNombre);
         TextView textViewMenuCorreo = headerView.findViewById(R.id.textViewMenuCorreo);
+        TextView textViewMenuRol = headerView.findViewById(R.id.textViewMenuRol);
         textViewMenuNombre.setText(currentUser.getDisplayName());
         textViewMenuCorreo.setText(currentUser.getEmail());
+        textViewMenuRol.setText("Cliente");
 
     }
 

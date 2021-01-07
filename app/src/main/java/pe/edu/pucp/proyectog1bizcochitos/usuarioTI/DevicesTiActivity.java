@@ -232,8 +232,10 @@ public class DevicesTiActivity extends AppCompatActivity implements NavigationVi
         View headerView = navigationView.getHeaderView(0);
         TextView textViewMenuNombre = headerView.findViewById(R.id.textViewMenuNombre);
         TextView textViewMenuCorreo = headerView.findViewById(R.id.textViewMenuCorreo);
+        TextView textViewMenuRol = headerView.findViewById(R.id.textViewMenuRol);
         textViewMenuNombre.setText(currentUser.getDisplayName());
         textViewMenuCorreo.setText(currentUser.getEmail());
+        textViewMenuRol.setText("Usuario TI");
 
     }
 

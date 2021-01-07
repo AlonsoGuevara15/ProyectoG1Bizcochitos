@@ -255,10 +255,12 @@ public class DevicesTiActivity extends AppCompatActivity implements NavigationVi
                 break;
 
             case R.id.nav_logout:
+                Log.d(TAG,"CLick Cerrar SESION");
                 AuthUI instance = AuthUI.getInstance();
                 instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        Log.d(TAG,"Cerro SESION");
                         startActivity(new Intent(DevicesTiActivity.this, MainActivity.class));
                         finish();
                     }

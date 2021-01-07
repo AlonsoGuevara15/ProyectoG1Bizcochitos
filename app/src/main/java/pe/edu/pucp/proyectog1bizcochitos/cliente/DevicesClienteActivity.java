@@ -100,6 +100,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
+            setNotif();
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             databaseReference.child("users").child(currentUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                 @Override
@@ -443,10 +444,12 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
                 break;
 
             case R.id.nav_logout:
+                Log.d(TAG,"CLick Cerrar SESION");
                 AuthUI instance = AuthUI.getInstance();
                 instance.signOut(this).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        Log.d(TAG,"Cerro SESION");
                         startActivity(new Intent(DevicesClienteActivity.this, MainActivity.class));
                         finish();
                     }

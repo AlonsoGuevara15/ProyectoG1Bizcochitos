@@ -133,7 +133,7 @@
         <Button
             android:id="@+id/btnUpdatePhoto"
             android:layout_width="137dp"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="Actualizar solo foto"
             app:layout_constraintBottom_toBottomOf="@+id/btnConfirmaReserva"
@@ -144,7 +144,7 @@
         <Button
             android:id="@+id/btnUpdateFields"
             android:layout_width="134dp"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Actualizar Campos"
             app:layout_constraintBottom_toBottomOf="parent"

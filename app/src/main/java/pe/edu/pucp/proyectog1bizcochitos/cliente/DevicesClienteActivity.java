@@ -353,7 +353,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
                                 if (soli.getEstado().equals("Aprobado")) {
                                     NotificationCompat.Builder builder = new NotificationCompat.Builder(DevicesClienteActivity.this, NOTIFCHANNEL);
                                     builder.setSmallIcon(R.mipmap.ic_launcher_round);
-                                    builder.setContentText(device.getTipo() + " - " + device.getMarca());
+                                    builder.setContentText("("+device.getTipo() + " - " + device.getMarca()+ ")");
                                     builder.setContentTitle("Solicitud APROBADA");
                                     builder.setPriority(NotificationCompat.PRIORITY_HIGH);
                                     notificationManager.notify(NOTIFNUMBER, builder.build());
@@ -362,7 +362,7 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
                                 } else if (soli.getEstado().equals("Rechazado")) {
                                     NotificationCompat.Builder builder = new NotificationCompat.Builder(DevicesClienteActivity.this, NOTIFCHANNEL);
                                     builder.setSmallIcon(R.mipmap.ic_launcher_round);
-                                    builder.setContentText(device.getTipo() + " - " + device.getMarca() + "\nMotivo: " + soli.getJustifrechazo());
+                                    builder.setContentText("("+device.getTipo() + " - " + device.getMarca() + ")\nMotivo: " + soli.getJustifrechazo());
                                     builder.setContentTitle("Solicitud RECHAZADA");
                                     builder.setPriority(NotificationCompat.PRIORITY_HIGH);
                                     notificationManager.notify(NOTIFNUMBER, builder.build());
@@ -438,12 +438,12 @@ public class DevicesClienteActivity extends AppCompatActivity implements Navigat
         switch (item.getItemId()) {
             case R.id.nav_soli:
                 startActivity(new Intent(DevicesClienteActivity.this, SolicitudesCliente.class));
-                finish();
+
                 break;
 
             case R.id.nav_hist:
                 startActivity(new Intent(DevicesClienteActivity.this, HistoryCliente.class));
-                finish();
+
                 break;
 
             case R.id.nav_logout:

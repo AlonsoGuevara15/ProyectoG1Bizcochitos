@@ -5,16 +5,21 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import pe.edu.pucp.proyectog1bizcochitos.R;
 import pe.edu.pucp.proyectog1bizcochitos.clases.Device;
@@ -27,6 +32,7 @@ import pe.edu.pucp.proyectog1bizcochitos.cliente.DevicesClienteActivity;
  * create an instance of this fragment.
  */
 public class EditDeviceFragment extends Fragment {
+    private static final String TAG = "debugeo";
 
 
     private static Device device;
@@ -60,13 +66,17 @@ public class EditDeviceFragment extends Fragment {
         EditText editTextStockedit = view.findViewById(R.id.editTextStockedit);
         EditText editTextCaractedit = view.findViewById(R.id.editTextCaractedit);
         Button btnfields = view.findViewById(R.id.btnUpdateFields);
-        Button btnphoto = view.findViewById(R.id.btnUpdatePhoto);
+        ImageView imagePreview = view.findViewById(R.id.imagePreviewEdit);
 
         detailtipo.setText(device.getTipo());
         editTextMarcaedit.setText(device.getMarca());
         editTextIncluyeedit.setText(device.getIncluye());
         editTextStockedit.setText(String.valueOf(device.getStock()));
         editTextCaractedit.setText(device.getCaracteristicas());
+        String ruta = "Imagenes/" + device.getDeviceId() + ".jpg";
+        StorageReference imageRef = FirebaseStorage.getInstance().getReference().child(ruta);
+        Log.d(TAG,ruta);
+        Glide.with(getContext()).load(imageRef).into(imagePreview);
 
         btnfields.setOnClickListener(new View.OnClickListener() {
             @Override
